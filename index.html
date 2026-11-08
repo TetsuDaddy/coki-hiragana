@@ -1,728 +1,6 @@
 <!DOCTYPE html>
-<html lang="ja"><head><script data-bard-client-injected="true">(function(firebaseConfig, initialAuthToken, appId) {
-        window.__firebase_config = firebaseConfig;
-        window.__initial_auth_token = initialAuthToken;
-        window.__app_id = appId;
-            })("\n{\n  \"apiKey\": \"AIzaSyCqyCcs2R2e7AegGjvFAwG98wlamtbHvZY\",\n  \"authDomain\": \"bard-frontend.firebaseapp.com\",\n  \"projectId\": \"bard-frontend\",\n  \"storageBucket\": \"bard-frontend.firebasestorage.app\",\n  \"messagingSenderId\": \"175205271074\",\n  \"appId\": \"1:175205271074:web:2b7bd4d34d33bf38e6ec7b\"\n}\n","eyJhbGciOiJSUzI1NiIsImtpZCI6IjExNjRiNzdiNDMzZDdhMDAyMWI4NjE4YjhjYTU3ZTMyZGI5MWUxMTMiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiJmaXJlYmFzZS1hZG1pbnNkay1mYnN2Y0BiYXJkLWZyb250ZW5kLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwiYXVkIjoiaHR0cHM6Ly9pZGVudGl0eXRvb2xraXQuZ29vZ2xlYXBpcy5jb20vZ29vZ2xlLmlkZW50aXR5LmlkZW50aXR5dG9vbGtpdC52MS5JZGVudGl0eVRvb2xraXQiLCJ1aWQiOiIwOTU2NzcwMTI0MjgzODg1MzY0MyIsImlzcyI6ImZpcmViYXNlLWFkbWluc2RrLWZic3ZjQGJhcmQtZnJvbnRlbmQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJjbGFpbXMiOnsiYXBwSWQiOiJjXzkwNWFlYTA1MjNhNGM0NTZfaW5kZXguaHRtbC0yMzkifSwiZXhwIjoxNzk0MTMzNTY2LCJpYXQiOjE3OTQxMjk5NjYsImFsZyI6IlJTMjU2In0.YHrdE7i1JDLsG9hOxc7y_KnZ3fHNq6vWAXHAb3LTjsewNXl_EM11ejii-sq5K5W1fDXMSBR03khfEyAbeVauYxJNjAEGf_DNmSCJ4MtPrv3AcxSMB3bXgXyloJgQnDGHfdLtTPotwf87vbgJ125hwt04zdUkcSQEGOU-HjqIS5asEaN1ReoR-bGPbjcgqEl7ReTYiXjfiicImcjIlHg1OWP7Lo1QWHpIMDtpxeFUQU8pIO9J-1vL7Vq44_Ebbdb9j9CsdKiPAIXJX0EQJ7J9Xz5HutW-U7yMNd_qn-zDJXxYMCoSP-DHaYx2HLpSfSlmRU1Qq6ayU_z7JNq5U2nJHg","c_905aea0523a4c456_index.html-239")</script><script data-bard-client-injected="true">
-  document.addEventListener('input', (event) => {
-    if (event.target && (event.target.isContentEditable || event.target.hasAttribute('contenteditable'))) {
-      const clonedDoc = document.cloneNode(true);
-      const injectedScripts = clonedDoc.querySelectorAll('[data-bard-client-injected="true"]');
-      injectedScripts.forEach(el => el.remove());
-      window.parent.postMessage({
-        type: 'inlineEdit',
-        html: '<!DOCTYPE html>\n' + clonedDoc.documentElement.outerHTML
-      }, '*');
-    }
-  });
-</script><script data-bard-client-injected="true">(function(){'use strict';window.addEventListener("message",a=>{a.data&&a.data.type==="SUPPLEMENTAL_DATA_UPDATE"&&window.dispatchEvent(new CustomEvent("supplementaldataupdate",{detail:a.data.data}))});}).call(this);
-</script><script data-bard-client-injected="true">(function() {
-  const SCROLL_KEYS = new Set([
-    'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight',
-    ' ', 'Spacebar', 'PageUp', 'PageDown', 'Home', 'End',
-  ]);
-  const HORIZONTAL_KEYS = new Set(['ArrowLeft', 'ArrowRight']);
-
-  function isTextEntryTarget(target) {
-    if (!target) return false;
-    const tagName = target.tagName;
-    return tagName === 'INPUT' || tagName === 'TEXTAREA' ||
-        tagName === 'SELECT' || target.isContentEditable === true;
-  }
-
-  // An element absorbs the key only if it both overflows on the axis being
-  // scrolled and is configured to scroll on that axis. The cheap dimension
-  // test runs first because getComputedStyle forces a style recalc, and this
-  // runs on every keypress. Each axis is read from its own longhand: the
-  // 'overflow' shorthand serializes as two values when the axes differ, which
-  // is the common 'overflow-x: hidden; overflow-y: auto' pane.
-  function canScroll(node, horizontal) {
-    const overflows = horizontal ? node.scrollWidth > node.clientWidth
-                                 : node.scrollHeight > node.clientHeight;
-    if (!overflows) return false;
-    const style = window.getComputedStyle(node);
-    const overflow = horizontal ? style.overflowX : style.overflowY;
-    return overflow === 'auto' || overflow === 'scroll';
-  }
-
-  // Walks up from the event target so nested scrollers keep their behavior.
-  // <body> is included because pages that pin the root height make it the
-  // scroll container.
-  function hasScrollableAncestor(target, horizontal) {
-    let node = target;
-    while (node && node !== document.documentElement) {
-      if (canScroll(node, horizontal)) return true;
-      node = node.parentElement;
-    }
-    return false;
-  }
-
-  function rootCanScroll(horizontal) {
-    const scroller = document.scrollingElement || document.documentElement;
-    if (!scroller) return false;
-    // Tolerate a pixel of rounding so subpixel layouts do not look scrollable.
-    return horizontal ? scroller.scrollWidth > window.innerWidth + 1
-                      : scroller.scrollHeight > window.innerHeight + 1;
-  }
-
-  window.addEventListener('keydown', function(event) {
-    if (!SCROLL_KEYS.has(event.key)) return;
-    if (event.defaultPrevented) return;
-    // Alt and Meta turn arrows into browser history navigation, and Ctrl is
-    // reserved for shortcuts, so none of them are scroll intent.
-    if (event.altKey || event.metaKey || event.ctrlKey) return;
-
-    const target = event.target;
-    if (isTextEntryTarget(target)) return;
-
-    // Anything that can still absorb the scroll gets to keep it.
-    const horizontal = HORIZONTAL_KEYS.has(event.key);
-    if (rootCanScroll(horizontal)) return;
-    if (hasScrollableAncestor(target, horizontal)) return;
-
-    event.preventDefault();
-  }, {capture: true, passive: false});
-})();</script><script data-bard-client-injected="true">(function() {
-  // Ensure this script is executed only once
-  if (window.firebaseAuthBridgeScriptLoaded) {
-    return;
-  }
-  window.firebaseAuthBridgeScriptLoaded = true;
-
-  let nextTokenPromiseId = 0;
-
-  // Stores { resolve, reject } for ongoing token requests
-  const pendingTokenPromises = {};
-
-  // Listen for messages from the Host Application
-  window.addEventListener('message', function(event) {
-
-    const messageData = event.data;
-
-  if (messageData && messageData.type === 'RESOLVE_NEW_FIREBASE_TOKEN') {
-      const { success, token, error, promiseId } = messageData ?? {};
-      if (pendingTokenPromises[promiseId]) {
-        if (success) {
-          pendingTokenPromises[promiseId].resolve(token);
-        } else {
-          pendingTokenPromises[promiseId].reject(new Error(error || 'Token refresh failed from host.'));
-        }
-        delete pendingTokenPromises[promiseId];
-      }
-    }
-  });
-
-  // Expose a function for the Generated App to request a new Firebase token
-  window.requestNewFirebaseToken = function() {
-    const currentPromiseId = nextTokenPromiseId++;
-    const promise = new Promise((resolve, reject) => {
-      pendingTokenPromises[currentPromiseId] = { resolve, reject };
-    });
-    if (window.parent && window.parent !== window) {
-      window.parent.postMessage({
-        type: 'REQUEST_NEW_FIREBASE_TOKEN',
-        promiseId: currentPromiseId
-      }, '*');
-    } else {
-      pendingTokenPromises[currentPromiseId].reject(new Error('No parent window to request token from.'));
-      delete pendingTokenPromises[currentPromiseId];
-    }
-    return promise;
-  };
-})();</script><script data-bard-client-injected="true">
-let realOriginalGetUserMedia = null;
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  realOriginalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
-}
-
-(function() {
-  if (navigator.mediaDevices && navigator.mediaDevices.__proto__) {
-    try {
-      Object.defineProperty(navigator.mediaDevices.__proto__, 'getUserMedia', {
-        get: function() {
-          return undefined; // Or throw an error
-        },
-        configurable: false
-      });
-    } catch (error) {
-      console.error("Error defining prototype getter:", error);
-    }
-  }
-})();
-
-(function() {
-  const pendingMediaResolvers = {};
-  let nextMediaPromiseId = 0;
-
-  function requestMediaPermissions(constraints) {
-    const mediaPromiseId = nextMediaPromiseId++;
-    const promise = new Promise((resolve, reject) => {
-      pendingMediaResolvers[mediaPromiseId] = (granted) => {
-        delete pendingMediaResolvers[mediaPromiseId];
-        resolve(granted);
-      };
-    });
-
-    window.parent.postMessage({
-      type: 'requestMediaPermission',
-      constraints: constraints,
-      promiseId: mediaPromiseId,
-    }, '*');
-
-    return promise;
-  }
-
-  let originalGetUserMedia = realOriginalGetUserMedia;
-
-  function interceptGetUserMedia() {
-    if (navigator.mediaDevices) {
-      Object.defineProperty(navigator.mediaDevices, 'getUserMedia', {
-        value: function(constraints) {
-          return requestMediaPermissions(constraints).then((granted) => {
-            if (granted) {
-              if (originalGetUserMedia) {
-                return originalGetUserMedia(constraints);
-              } else {
-                throw new Error("Original getUserMedia not available.");
-              }
-            } else {
-              throw new DOMException('Permission denied', 'NotAllowedError');
-            }
-          });
-        },
-        writable: false,
-        configurable: false
-      });
-    }
-  }
-
-  interceptGetUserMedia();
-
-  const observer = new MutationObserver(function(mutationsList, observer) {
-    for (const mutation of mutationsList) {
-      if (mutation.type === 'reconfigured' && mutation.name === 'getUserMedia' && mutation.object === navigator.mediaDevices) {
-        interceptGetUserMedia();
-      } else if (mutation.type === 'attributes' && mutation.attributeName === 'getUserMedia' && mutation.target === navigator.mediaDevices) {
-        interceptGetUserMedia();
-      } else if (mutation.type === 'childList' && mutation.addedNodes) {
-        mutation.addedNodes.forEach(node => {
-          if (node === navigator.mediaDevices) {
-            interceptGetUserMedia();
-          }
-        });
-      }
-    }
-  });
-
-  function interceptSpeechRecognition() {
-    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
-      return;
-    }
-
-    const OriginalSpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-    const SpeechRecognitionWrapper = function(...args) {
-      const recognizer = new OriginalSpeechRecognition(...args);
-      const originalStart = recognizer.start.bind(recognizer);
-
-      recognizer.start = function() {
-        requestMediaPermissions({ audio: true }).then(granted => {
-          if (granted) {
-            originalStart();
-          } else {
-            const errorEvent = new SpeechRecognitionErrorEvent('error');
-            errorEvent.error = 'not-allowed'; // This is the standard error for permission denial.
-            recognizer.dispatchEvent(errorEvent);
-          }
-        });
-      };
-
-      return recognizer;
-    };
-
-    SpeechRecognitionWrapper.prototype = OriginalSpeechRecognition.prototype;
-    SpeechRecognitionWrapper.prototype.constructor = SpeechRecognitionWrapper;
-
-    if (window.SpeechRecognition) {
-      window.SpeechRecognition = SpeechRecognitionWrapper;
-    }
-    if (window.webkitSpeechRecognition) {
-      window.webkitSpeechRecognition = SpeechRecognitionWrapper;
-    }
-  }
-
-  interceptSpeechRecognition();
-
-  window.addEventListener('message', function(event) {
-    if (event.data) {
-      if (event.data.type === 'resolveMediaPermission') {
-        const { promiseId, granted } = event.data;
-        if (pendingMediaResolvers[promiseId]) {
-          pendingMediaResolvers[promiseId](granted);
-        }
-      }
-    }
-  });
-
-})();</script><script ws-interception-config="{&quot;parentOrigin&quot;:&quot;https://gemini.google.com&quot;,&quot;proxiedDomains&quot;:[]}" data-bard-client-injected="true">(function(){'use strict';var u=typeof Object.defineProperties=="function"?Object.defineProperty:function(b,d,e){if(b==Array.prototype||b==Object.prototype)return b;b[d]=e.value;return b};function v(b){b=["object"==typeof globalThis&&globalThis,b,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var d=0;d<b.length;++d){var e=b[d];if(e&&e.Math==Math)return e}throw Error("Cannot find global object");}var w=v(this);
-function y(b,d){if(d)a:{var e=w;b=b.split(".");for(var h=0;h<b.length-1;h++){var k=b[h];if(!(k in e))break a;e=e[k]}b=b[b.length-1];h=e[b];d=d(h);d!=h&&d!=null&&u(e,b,{configurable:!0,writable:!0,value:d})}}function z(b){function d(h){return b.next(h)}function e(h){return b.throw(h)}return new Promise(function(h,k){function m(n){n.done?h(n.value):Promise.resolve(n.value).then(d,e).then(m,k)}m(b.next())})}y("globalThis",function(b){return b||w});/*
-
- Copyright The Closure Library Authors.
- SPDX-License-Identifier: Apache-2.0
-*/
-function A(b,d){function e(){}e.prototype=d.prototype;b.j=d.prototype;b.prototype=new e;b.prototype.constructor=b;b.h=function(h,k,m){for(var n=Array(arguments.length-2),p=2;p<arguments.length;p++)n[p-2]=arguments[p];return d.prototype[k].apply(h,n)}};function B(b,d,e="*"){function h(a){if(typeof a==="string")return F.encode(a).buffer;if(a instanceof ArrayBuffer)return a.slice(0);if(ArrayBuffer.isView(a))return a.buffer.slice(a.byteOffset,a.byteOffset+a.byteLength);throw Error("Invalid data type");}function k(a){a=h(a);var f={type:"send",data:new Uint8Array(a)},g;(g=r)==null||g.postMessage(f,[a])}function m(){if(!r)throw Error("Data port not captured yet.");r.onmessage=a=>{if(a.data.type==="message"){a=new MessageEvent("message",{data:G.decode(a.data.data)});
-let f;(f=c.onmessage)==null||f.call(c,a);c.dispatchEvent(a)}}}function n(){if(!t)throw Error("Control port not captured yet.");t.onmessage=a=>{switch(a.data.type){case "open":l=1;var f=new Event("open"),g;(g=c.onopen)==null||g.call(c,f);c.dispatchEvent(f);q.forEach(H=>{k(H)});q=[];break;case "close":g=a.data;l=3;g=new CloseEvent("close",{code:g.code,reason:g.reason,wasClean:g.wasClean});(f=c.onclose)==null||f.call(c,g);c.dispatchEvent(g);break;case "error":l=3;f=new Event("error");let x;(x=c.onerror)==
-null||x.call(c,f);c.dispatchEvent(f)}}}function p(a){return z(function*(){var f=new MessageChannel;t=f.port1;var g=new MessageChannel;r=g.port1;n();m();window.parent.postMessage({type:"websocket_open",portOrdering:["control","data"],url:b,protocols:a||[],connectionId:I},e,[f.port2,g.port2])}())}var c=Reflect.construct(EventTarget,[],new.target);c.CONNECTING=0;c.OPEN=1;c.CLOSING=2;c.CLOSED=3;c.url=b;c.binaryType="arraybuffer";c.protocol="";c.i="";var l=0,t=null,r=null,q=[],F=new TextEncoder,G=new TextDecoder;
-c.onopen=null;c.onmessage=null;c.onclose=null;c.onerror=null;Object.defineProperty(c,"readyState",{get:()=>l,enumerable:!0,configurable:!0});Object.defineProperty(c,"bufferedAmount",{get:()=>{var a=0;q.forEach(f=>{a+=typeof f==="string"?f.length:f.byteLength});return a},enumerable:!0,configurable:!0});var I=function(){var a;return((a=globalThis.crypto)==null?0:a.randomUUID)?globalThis.crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,f=>{var g=Math.random()*16|0;return(f===
-"x"?g:g&3|8).toString(16)})}();c.send=a=>{if(l===1)a instanceof Blob?a.arrayBuffer().then(f=>{k(f)}):k(a);else if(l===0)if(typeof a==="string")q.push(a);else if(a instanceof ArrayBuffer||ArrayBuffer.isView(a))q.push(h(a));else throw Error("Sending Blob is not supported before the connection is open.");else console.debug("WebSocket send called in CLOSING or CLOSED state; ignored.")};c.close=(a=1E3,f="")=>{if(l!==2&&l!==3){l=2;a={type:"close",code:a,reason:f,wasClean:a===1E3};var g;(g=t)==null||g.postMessage(a)}};
-Promise.resolve().then(()=>p(d));return c}A(B,EventTarget);var C=document.currentScript,D=C==null?void 0:C.getAttribute("ws-interception-config");if(!D)throw Error("WebSocket Interceptor: Missing ws-interception-config attribute in the script tag.");var E=JSON.parse(D);if(!E.parentOrigin||typeof E.parentOrigin!=="string")throw Error("WebSocket Interceptor: Invalid parentOrigin in ws-interception-config");
-(function(b){var d=Object.getOwnPropertyDescriptor(window,"WebSocket");if(!d||d.writable||d.configurable)d=Object.assign(function(e,h){try{let k=(new URL(e)).hostname;if(b.proxiedDomains.some(m=>k===m||k.endsWith(`.${m}`)))return new B(e,h,b.parentOrigin)}catch(k){throw window.parent.postMessage({type:"websocket_blocked",url:e,reason:"blocked_invalid_url"},b.parentOrigin),new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");}window.parent.postMessage({type:"websocket_blocked",
-url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");},{CONNECTING:0,OPEN:1,CLOSING:2,CLOSED:3}),Object.defineProperty(window,"WebSocket",{value:d,writable:!1,configurable:!1})})({proxiedDomains:E.proxiedDomains||[],parentOrigin:E.parentOrigin});}).call(this);
-</script><script data-bard-client-injected="true">((function(modelInformation) {
-  const originalFetch = window.fetch;
-  // TODO: b/421908508 - Move these out of the script and match all generative AI model calls.
-  let googleLlmBaseApiUrls = [
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':streamGenerateContent',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':generateContent',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predict',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predictLongRunning',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageEditModelName + ':generateContent',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageTransformModelName + ':generateContent',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predict',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predictLongRunning',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.ttsModelName + ':generateContent',
-  ];
-  modelInformation.deprecatedTextModelNames.forEach((modelName) => {
-    googleLlmBaseApiUrls.push(
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
-    );
-  });
-  modelInformation.deprecatedImageModelNames.forEach((modelName) => {
-    googleLlmBaseApiUrls.push(
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predict',
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predictLongRunning',
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
-    );
-  });
-  modelInformation.deprecatedGenerateImageModelNames.forEach((modelName) => {
-    googleLlmBaseApiUrls.push(
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
-    );
-  });
-  modelInformation.deprecatedImageTransformModelNames.forEach((modelName) => {
-    googleLlmBaseApiUrls.push(
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
-    );
-  });
-
-  const pendingFetchResolvers = {};
-  let nextPromiseId = 0;
-
-  function handleStringInput(input, optionsArgument) {
-    const actualUrl = input;
-    const fetchCallArgs = [actualUrl, optionsArgument];
-    const effectiveOptions = optionsArgument || {};
-    const bodyForApiKeyCheck = effectiveOptions.body;
-    const bodyForPostMessage = effectiveOptions.body;
-    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
-  }
-
-  function handleRequestInput(input, optionsArgument) {
-    const actualUrl = input.url;
-    const fetchCallArgs = [input, optionsArgument];
-    const effectiveOptions = { method: input.method, headers: new Headers(input.headers) };
-    let bodyForApiKeyCheck;
-    let bodyForPostMessage;
-
-    if (optionsArgument) {
-      if (optionsArgument.method) effectiveOptions.method = optionsArgument.method;
-      if (optionsArgument.headers) effectiveOptions.headers = new Headers(optionsArgument.headers);
-      if ('body' in optionsArgument) {
-        bodyForApiKeyCheck = optionsArgument.body;
-        bodyForPostMessage = optionsArgument.body;
-      } else {
-        bodyForApiKeyCheck = undefined;
-        bodyForPostMessage = input.body;
-      }
-    } else {
-      bodyForApiKeyCheck = undefined;
-      bodyForPostMessage = input.body;
-    }
-    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
-  }
-
-  window.fetch = function(input, optionsArgument) {
-    let actualUrl;
-    let fetchCallArgs;
-    let effectiveOptions = {};
-    let bodyForApiKeyCheck;
-    let bodyForPostMessage;
-
-    if (typeof input === 'string') {
-      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleStringInput(input, optionsArgument));
-    } else if (input instanceof Request) {
-      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleRequestInput(input, optionsArgument));
-    } else {
-      return originalFetch.apply(window, [input, optionsArgument]);
-    }
-
-    effectiveOptions.method = effectiveOptions.method || 'GET';
-    if (!effectiveOptions.headers) {
-      effectiveOptions.headers = new Headers();
-    }
-
-
-    if (typeof actualUrl === 'string' && googleLlmBaseApiUrls.some((url) => actualUrl.startsWith(url))) {
-      let apiKeyIsNull = true;
-
-      const regex = new RegExp("models/([^:]+)");
-      const modelNameMatch = actualUrl.match(regex);
-      const modelName = modelNameMatch ? modelNameMatch[1] : 'unspecified';
-
-
-      try {
-        const urlObject = new URL(actualUrl);  // Use URL object for robust parsing
-        const apiKeyParam = urlObject.searchParams.get('key');
-        if (apiKeyParam) {
-          apiKeyIsNull = false;
-        }
-      } catch (e) {
-        // Continue checks even if URL parsing fails
-      }
-
-      if (apiKeyIsNull && effectiveOptions.headers) {
-        const h = new Headers(effectiveOptions.headers);
-        const apiKeyHeaderValue = h.get('X-API-Key') || h.get('x-api-key');
-        if (apiKeyHeaderValue) {
-          apiKeyIsNull = false;
-          return originalFetch.apply(window, fetchCallArgs);
-        }
-      }
-
-      if (apiKeyIsNull && effectiveOptions.method && ['POST', 'PUT', 'PATCH'].includes(effectiveOptions.method.toUpperCase()) && typeof bodyForApiKeyCheck === 'string') {
-        try {
-          const bodyData = JSON.parse(bodyForApiKeyCheck);
-          if (bodyData && bodyData.apiKey) {
-            apiKeyIsNull = false;
-            return originalFetch.apply(window, fetchCallArgs);
-          }
-        } catch (e) {
-          // Ignore JSON parsing errors
-        }
-      }
-
-      if(apiKeyIsNull) {
-        const promiseId = nextPromiseId++;
-        const promise = new Promise((resolve) => {
-          pendingFetchResolvers[promiseId] = (resolvedResponse) => {
-            delete pendingFetchResolvers[promiseId];
-            resolve(resolvedResponse);
-          };
-        });
-
-        let serializedBodyForPostMessage;
-        if (typeof bodyForPostMessage === 'string' || bodyForPostMessage == null) {
-            serializedBodyForPostMessage = bodyForPostMessage;
-        } else if (bodyForPostMessage instanceof ReadableStream) {
-            serializedBodyForPostMessage = null;
-        } else {
-            try {
-                serializedBodyForPostMessage = JSON.stringify(bodyForPostMessage);
-            } catch (e) {
-                serializedBodyForPostMessage = null;
-            }
-        }
-
-        const messageOptions = {
-            method: effectiveOptions.method,
-            headers: Object.fromEntries(new Headers(effectiveOptions.headers).entries()),
-            body: serializedBodyForPostMessage
-        };
-
-        window.parent.postMessage({
-          type: 'requestFetch',
-          url: actualUrl,
-          modelName: modelName,
-          options: messageOptions,
-          promiseId: promiseId,
-        }, '*');
-
-        return promise;
-      }
-      return originalFetch.apply(window, fetchCallArgs);
-    }
-    return originalFetch.apply(window, fetchCallArgs);
-  };
-
-  window.addEventListener('message', function(event) {
-    if (event.data && event.data.type === 'resolveFetch') {
-      const { promiseId, response } = event.data;
-      if (pendingFetchResolvers[promiseId]) {
-        try {
-          const reconstructedResponse = new Response(response.body, {
-            status: response.status,
-            statusText: response.statusText,
-            headers: new Headers(response.headers),
-          });
-          pendingFetchResolvers[promiseId](reconstructedResponse);
-        } catch (error) {
-          pendingFetchResolvers[promiseId](new Response(null, { status: 500, statusText: "Interceptor Response Reconstruction Error" }));
-        }
-      }
-    }
-  });
-
-}))({"textModelName":"gemini-3-flash-preview","imageModelName":"imagen-4.0-generate-001","imageEditModelName":"gemini-3.1-flash-image","imageTransformModelName":"gemini-3-pro-image","videoModelName":"veo-2.0-generate-001","ttsModelName":"gemini-2.5-flash-preview-tts","deprecatedTextModelNames":["gemini-2.0-flash","gemini-2.5-flash","gemini-2.5-flash-preview-04-17","gemini-2.5-flash-preview-05-20","gemini-2.5-flash-preview-09-2025"],"deprecatedImageModelNames":["imagen-3.0-generate-001","imagen-3.0-generate-002"],"deprecatedGenerateImageModelNames":["gemini-2.5-flash-image-preview","gemini-2.5-flash-image","gemini-3.1-flash-image-preview"],"deprecatedImageTransformModelNames":["gemini-3-pro-image-preview-11-2025"]})</script><script data-bard-client-injected="true">(function() {
-  function normalizeSlug(str) {
-    try {
-      return str
-        .trim()
-        .toLowerCase()
-        .replace(/[^p{L}p{N}s_-]/gu, '')
-        .replace(/s+/g, '-');
-    } catch (e) {
-      return str
-        .trim()
-        .toLowerCase()
-        .replace(/[^a-z0-9s_-]/g, '')
-        .replace(/s+/g, '-');
-    }
-  }
-
-  function findTargetElement(hash) {
-    if (!hash || hash === '#') {
-      return null;
-    }
-    const rawId = hash.startsWith('#') ? hash.slice(1) : hash;
-    let decodedId = rawId;
-    try {
-      decodedId = decodeURIComponent(rawId);
-    } catch (e) {
-      // Ignore URI malformed errors.
-    }
-
-    // 1. Direct ID match (raw and decoded).
-    let target = document.getElementById(rawId) || document.getElementById(decodedId);
-    if (target) {
-      return target;
-    }
-
-    // 2. Name attribute match (<a name="...">).
-    try {
-      if (typeof CSS !== 'undefined' && CSS.escape) {
-        target =
-          document.querySelector('[name="' + CSS.escape(rawId) + '"]') ||
-          document.querySelector('[name="' + CSS.escape(decodedId) + '"]');
-      } else {
-        const namedElements = document.getElementsByName(rawId);
-        if (namedElements && namedElements.length > 0) {
-          return namedElements[0];
-        }
-      }
-    } catch (e) {
-      // Ignore querySelector syntax errors.
-    }
-    if (target) {
-      return target;
-    }
-
-    // 3. Match heading text by slug (for Markdown TOCs where headings lack explicit IDs).
-    const targetSlug = normalizeSlug(decodedId);
-    if (targetSlug) {
-      for (const heading of document.querySelectorAll('h1, h2, h3, h4, h5, h6')) {
-        if (normalizeSlug(heading.textContent || '') === targetSlug) {
-          return heading;
-        }
-      }
-    }
-
-    return null;
-  }
-
-  document.addEventListener('click', function(event) {
-    const target = event.target;
-    const anchor = target && typeof target.closest === 'function' ? target.closest('a') : null;
-    if (!anchor) {
-      return;
-    }
-
-    const href = anchor.getAttribute('href');
-    if (
-      !href ||
-      href.trim().toLowerCase().startsWith('javascript:') ||
-      anchor.hasAttribute('download')
-    ) {
-      return;
-    }
-
-    // Check if the link is an in-page hash / anchor link.
-    if (href.startsWith('#')) {
-      event.preventDefault();
-      const targetElement = findTargetElement(href);
-      if (targetElement) {
-        targetElement.scrollIntoView({behavior: 'smooth', block: 'start'});
-      }
-      return;
-    }
-
-    // Check if the URL has the same origin/pathname but with a hash.
-    try {
-      const url = new URL(anchor.href, window.location.href);
-      if (
-        url.hash &&
-        url.origin === window.location.origin &&
-        url.pathname === window.location.pathname
-      ) {
-        event.preventDefault();
-        const targetElement = findTargetElement(url.hash);
-        if (targetElement) {
-          targetElement.scrollIntoView({behavior: 'smooth', block: 'start'});
-        }
-        return;
-      }
-    } catch (e) {
-      // Fall through if URL parsing fails.
-    }
-
-    // For all external or full navigation links, prevent iframe-level navigation
-    // (which breaks in AGSA WebView or sandboxed iframes) and ensure they open
-    // safely in a new tab/window.
-    if (anchor.target !== '_blank') {
-      event.preventDefault();
-      window.open(anchor.href, '_blank', 'noopener,noreferrer');
-    }
-  }, {capture: true});
-})();</script><script data-bard-client-injected="true">(function(){'use strict';function a(){window.parent.postMessage({type:"interaction"},"*")}window.addEventListener("click",a,{capture:!0,passive:!0});window.addEventListener("touchstart",a,{capture:!0,passive:!0});window.addEventListener("keydown",a,{capture:!0,passive:!0});}).call(this);
-</script><script data-bard-client-injected="true">(function() {
-  const originalConsoleLog = console.log;
-  const originalConsoleError = console.error;
-
-    /**
-   * Normalizes an error event or a promise rejection reason into a structured error object.
-   * @param {*} errorEventOrReason The error object or reason.
-   * @return {object} Structured error data { message, name, stack }.
-   */
-  function getErrorObject(errorEventOrReason) {
-    if (errorEventOrReason instanceof Error) {
-      return {
-        message: errorEventOrReason.message,
-        name: errorEventOrReason.name,
-        stack: errorEventOrReason.stack,
-      };
-    }
-    // Fallback for non-Error objects.
-    try {
-      return {
-        message: JSON.stringify(errorEventOrReason),
-        name: 'UnknownErrorType',
-        stack: null,
-      };
-    } catch (e) {
-      return {
-        message: String(errorEventOrReason),
-        name: 'UnknownErrorTypeNonStringifiable',
-        stack: null,
-      };
-    }
-  }
-
-  /**
-   * Converts an array of arguments (from log/error) into a single string.
-   * Handles Error objects specially to include their message and stack.
-   * @param {Array<*>} args - Arguments passed to console methods.
-   * @return {string} A string representation of the arguments.
-   */
-  function stringifyArgs(args) {
-    return args
-      .map((arg) => {
-        if (arg instanceof Error) {
-          const {message, stack} = arg;
-          return `Error: ${message}${stack ? ('\nStack: ' + stack) : ''}`;
-        }
-        if (typeof arg === 'object' && arg !== null) {
-          try {
-            return JSON.stringify(arg);
-          } catch (error) {
-            return '[Circular Object]';
-          }
-        } else {
-          return String(arg);
-        }
-      })
-      .join(' ');
-  }
-
-  console.log = function(...args) {
-    const logString = stringifyArgs(args);
-    window.parent.postMessage({ type: 'log', message: logString }, '*');
-    originalConsoleLog.apply(console, args);
-  };
-
-  console.error = function(...args) {
-    let errorData;
-    if (args.length > 0 && args[0] instanceof Error) {
-      const err = args[0];
-      // If the first arg is an Error, capture its details.
-      errorData = {
-        type: 'error',
-        source: 'CONSOLE_ERROR',
-        ...getErrorObject(err),
-        rawArgsString: stringifyArgs(args.slice(1)),
-        timestamp: new Date().toISOString(),
-      };
-    } else {
-      // If not an Error object, treat all args as a general error message.
-      errorData = {
-        type: 'error',
-        source: 'CONSOLE_ERROR',
-        message: stringifyArgs(args),
-        name: 'ConsoleLoggedError',
-        stack: null,
-        timestamp: new Date().toISOString(),
-      };
-    }
-    window.parent.postMessage(errorData, '*');
-    originalConsoleError.apply(console, args);
-  };
-
-  // Listen for global unhandled synchronous errors.
-  window.addEventListener('error', function(event) {
-    const errorDetails = event.error ? getErrorObject(event.error) : {
-      message: event.message,
-      name: 'GlobalError',
-      stack: null,
-      filename: event.filename,
-      lineno: event.lineno,
-      colno: event.colno,
-    };
-
-    window.parent.postMessage({
-      type: 'error',
-      source: 'global',
-      ...errorDetails,
-      message: errorDetails.message || event.message,
-      timestamp: new Date().toISOString(),
-    }, '*');
-  });
-
-  // Listen for unhandled promise rejections (asynchronous errors).
-  window.addEventListener('unhandledrejection', function(event) {
-    const errorDetails = getErrorObject(event.reason);
-
-    window.parent.postMessage({
-      type: 'error',
-      source: 'unhandledrejection',
-      ...errorDetails,
-      message: errorDetails.message || 'Unhandled Promise Rejection',
-      timestamp: new Date().toISOString(),
-    }, '*');
-  });
-
-})();</script>
+<html lang="ja">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>coki なぞり書き・ことば・あなうめ・お絵描き</title>
@@ -737,7 +15,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       --blue: #1e90ff;
       --purple: #a855f7;
     }
-
     html, body {
       width: 100%;
       height: 100%;
@@ -750,7 +27,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       left: 0;
       top: 0;
     }
-
     * {
       box-sizing: border-box;
       -webkit-user-select: none;
@@ -759,7 +35,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       padding: 0;
       -webkit-tap-highlight-color: transparent;
     }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Hiragino Maru Gothic ProN", "Yu Gothic Rounded", sans-serif;
       background-color: var(--bg-color);
@@ -771,8 +46,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       padding-top: env(safe-area-inset-top, 6px);
       padding-bottom: env(safe-area-inset-bottom, 6px);
     }
-
-    /* ヘッダー */
     header {
       width: 100%;
       max-width: 580px;
@@ -783,24 +56,20 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       gap: 6px;
       z-index: 20;
     }
-
     body.is-oekaki header, body.is-wide header {
       max-width: 95vw !important;
     }
-
     .brand-left {
       display: flex;
       align-items: center;
       gap: 6px;
     }
-
     .brand-title {
       font-size: 18px;
       font-weight: 900;
       color: var(--accent);
       letter-spacing: 0.5px;
     }
-
     .btn-download-app {
       background: #10b981;
       color: #ffffff;
@@ -819,7 +88,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       transform: scale(0.95);
       background: #059669;
     }
-
     .mode-tabs {
       display: flex;
       gap: 2px;
@@ -832,7 +100,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       touch-action: pan-x !important;
     }
     .mode-tabs::-webkit-scrollbar { display: none; }
-
     .mode-btn {
       padding: 6px 8px;
       border-radius: 8px;
@@ -844,14 +111,11 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       cursor: pointer;
       white-space: nowrap;
     }
-
     .mode-btn.active {
       background: #ffffff;
       color: var(--text-color);
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-
-    /* 文字 / 言葉 カルーセル */
     .char-scroll-container {
       width: 100%;
       max-width: 580px;
@@ -867,7 +131,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       align-items: center;
     }
     .char-scroll-container::-webkit-scrollbar { display: none; }
-
     body.is-oekaki .char-scroll-container {
       display: none !important;
       height: 0 !important;
@@ -875,7 +138,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       padding: 0 !important;
       margin: 0 !important;
     }
-
     .char-pill {
       min-width: 44px;
       height: 44px;
@@ -901,8 +163,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       box-shadow: 0 3px 0 #b5830e;
       transform: translateY(-2px);
     }
-
-    /* ことば・あなうめ ヒントバッジ */
     .word-hint-bar {
       width: 100%;
       max-width: 580px;
@@ -915,12 +175,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       font-weight: 900;
       color: #475569;
     }
-    .word-hint-emoji {
-      font-size: 26px;
-      line-height: 1;
-    }
-
-    /* メインキャンバスカード */
+    .word-hint-emoji { font-size: 26px; line-height: 1; }
     .canvas-wrapper {
       position: relative;
       width: 80vw;
@@ -935,7 +190,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       overflow: hidden;
       touch-action: none !important;
     }
-
     .canvas-wrapper.wide-mode {
       width: 95vw !important;
       max-width: 760px !important;
@@ -943,7 +197,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       max-height: 360px !important;
       border-radius: 24px;
     }
-
     .canvas-wrapper.fullscreen-mode {
       width: 95vw !important;
       max-width: 95vw !important;
@@ -951,7 +204,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       max-height: 58vh !important;
       border-radius: 20px;
     }
-
     .grid-lines {
       position: absolute;
       top: 0;
@@ -966,7 +218,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       stroke-width: 2;
       stroke-dasharray: 6 6;
     }
-
     .guide-text-layer {
       position: absolute;
       top: 0;
@@ -984,8 +235,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       z-index: 2;
       transform: translateY(4px);
     }
-
-    /* ことば・あなうめのマルチ文字レイアウト */
     .word-boxes-container {
       position: absolute;
       top: 0;
@@ -1000,7 +249,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       z-index: 2;
       pointer-events: none !important;
     }
-
     .word-box-item {
       flex: 1;
       max-width: 170px;
@@ -1013,12 +261,10 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       justify-content: center;
       position: relative;
     }
-
     .word-box-item.is-target-blank {
       border: 3.5px dashed #ff4757;
       background: rgba(255, 71, 87, 0.05);
     }
-
     .word-box-char {
       font-size: 96px;
       font-weight: 900;
@@ -1028,8 +274,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     .word-box-item.is-fixed .word-box-char {
       color: #334155 !important;
     }
-
-    /* キャンバス最前面配置 */
     #draw-canvas {
       position: absolute;
       top: 0;
@@ -1040,7 +284,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       touch-action: none !important;
       cursor: crosshair;
     }
-
     .order-pin {
       position: absolute;
       width: 28px;
@@ -1064,13 +307,10 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       transform: scale(0.9);
       animation: none;
     }
-
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.22); }
     }
-
-    /* 下部操作パネル */
     .control-panel {
       width: 100%;
       max-width: 580px;
@@ -1081,11 +321,9 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       align-items: center;
       z-index: 20;
     }
-
     body.is-oekaki .control-panel, body.is-wide .control-panel {
       max-width: 95vw !important;
     }
-
     .palette {
       display: flex;
       gap: 12px;
@@ -1097,7 +335,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       border: 3px solid #e2e8f0;
       box-shadow: 0 4px 12px rgba(0,0,0,0.04);
     }
-
     .color-swatch {
       width: 34px;
       height: 34px;
@@ -1116,7 +353,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     .rainbow-swatch {
       background: linear-gradient(135deg, #ff4757, #ffa502, #2ed573, #1e90ff, #9b59b6);
     }
-
     .palette-container {
       display: flex;
       flex-direction: column;
@@ -1124,7 +360,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       align-items: center;
       width: 100%;
     }
-
     .oekaki-palette-row {
       display: flex;
       gap: 8px;
@@ -1141,8 +376,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       touch-action: pan-x !important;
     }
     .oekaki-palette-row::-webkit-scrollbar { display: none; }
-
-    /* 色まぜミキサー */
     .color-mixer-toolbar {
       display: flex;
       align-items: center;
@@ -1153,13 +386,11 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       border: 2px solid #cbd5e1;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
-
     .mixer-slot-group {
       display: flex;
       align-items: center;
       gap: 6px;
     }
-
     .mixer-slot {
       width: 32px;
       height: 32px;
@@ -1169,24 +400,20 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       cursor: pointer;
       transition: transform 0.12s, border-color 0.15s;
     }
-
     .mixer-slot.target-active {
       border-color: #6366f1 !important;
       transform: scale(1.18);
       animation: slotBlink 1s infinite alternate;
     }
-
     @keyframes slotBlink {
       0% { box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4); }
       100% { box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.7); }
     }
-
     .mixer-plus {
       font-size: 16px;
       font-weight: 900;
       color: #94a3b8;
     }
-
     .btn-mix-action {
       background: linear-gradient(135deg, #6366f1, #a855f7);
       color: #ffffff;
@@ -1200,8 +427,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       white-space: nowrap;
     }
     .btn-mix-action:active { transform: scale(0.94); }
-
-    /* ペン太さセレクター */
     .brush-size-picker {
       display: flex;
       align-items: center;
@@ -1212,14 +437,12 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       border: 2px solid #cbd5e1;
       box-shadow: 0 2px 5px rgba(0,0,0,0.04);
     }
-
     .brush-size-label {
       font-size: 11px;
       font-weight: 900;
       color: #64748b;
       margin-right: 2px;
     }
-
     .btn-brush-size {
       display: inline-flex;
       align-items: center;
@@ -1232,7 +455,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       cursor: pointer;
       color: #475569;
     }
-
     .btn-brush-size.active {
       background: #6366f1;
       color: #ffffff;
@@ -1240,7 +462,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       transform: scale(1.1);
       box-shadow: 0 2px 6px rgba(99, 102, 241, 0.35);
     }
-
     .brush-dot {
       background-color: currentColor;
       border-radius: 50%;
@@ -1249,14 +470,12 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     .brush-dot.dot-sm { width: 6px; height: 6px; }
     .brush-dot.dot-md { width: 12px; height: 12px; }
     .brush-dot.dot-lg { width: 20px; height: 20px; }
-
     .actions-main {
       display: flex;
       gap: 10px;
       width: 100%;
       justify-content: center;
     }
-
     .btn-action {
       flex: 1;
       max-width: 150px;
@@ -1271,7 +490,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       justify-content: center;
       gap: 5px;
     }
-
     .btn-clear {
       background: #f1f5f9;
       color: #64748b;
@@ -1282,7 +500,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       transform: translateY(2px);
       box-shadow: 0 1px 0 #cbd5e1;
     }
-
     .btn-check {
       background: #2ed573;
       color: #ffffff;
@@ -1293,14 +510,12 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       transform: translateY(2px);
       box-shadow: 0 1px 0 #20bf6b;
     }
-
     .download-bar {
       display: flex;
       gap: 8px;
       width: 100%;
       justify-content: center;
     }
-
     .btn-sub-dl {
       flex: 1;
       max-width: 145px;
@@ -1315,7 +530,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       gap: 4px;
       border: none;
     }
-
     .btn-png-dl {
       background: #e0f2fe;
       color: #0284c7;
@@ -1326,7 +540,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       transform: translateY(2px);
       box-shadow: 0 1px 0 #bae6fd;
     }
-
     .btn-pdf-dl {
       background: #f3e8ff;
       color: #9333ea;
@@ -1337,7 +550,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       transform: translateY(2px);
       box-shadow: 0 1px 0 #e9d5ff;
     }
-
     .btn-load-img {
       background: #fef3c7;
       color: #d97706;
@@ -1348,7 +560,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       transform: translateY(2px);
       box-shadow: 0 1px 0 #fde68a;
     }
-
     .reward-overlay {
       position: absolute;
       top: 0;
@@ -1368,7 +579,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       opacity: 1; 
       display: block;
     }
-
     .sprunki-eyes {
       position: absolute;
       top: 14%;
@@ -1404,12 +614,10 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       background: #1e272e;
     }
     .eye.wink .pupil { display: none; }
-
     @keyframes monsterBounce {
       0% { transform: translateY(0) scale(1, 1); }
       100% { transform: translateY(-16px) scale(1.12, 0.9); }
     }
-
     .hanamaru {
       width: 140px;
       height: 140px;
@@ -1423,7 +631,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       0% { transform: scale(2.6) rotate(-25deg); opacity: 0; }
       100% { transform: scale(1) rotate(12deg); opacity: 0.95; }
     }
-
     .try-again-bubble {
       position: absolute;
       top: 40%;
@@ -1447,8 +654,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       opacity: 1;
       transform: translate(-50%, -50%) scale(1.05);
     }
-
-    /* 「つぎへ」スキップ・次問案内ボタン */
     .next-stage-btn {
       position: absolute;
       bottom: 12px;
@@ -1472,7 +677,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       0% { transform: translateY(0); }
       100% { transform: translateY(-6px) scale(1.05); }
     }
-
     .confetti-container {
       position: absolute;
       top: 0;
@@ -1494,7 +698,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 1; }
       100% { transform: translateY(440px) rotate(720deg) scale(1.1); opacity: 0; }
     }
-
     @media print {
       body * { visibility: hidden; }
       #print-sheet-area, #print-sheet-area * { visibility: visible; }
@@ -1518,134 +721,103 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     }
   </style>
 </head>
-<body class="is-wide">
-
-  <!-- ヘッダー -->
+<body>
   <header>
     <div class="brand-left">
       <span class="brand-title">coki 🎨</span>
       <button class="btn-download-app" id="btn-save-file" title="このアプリをiPadやPCに保存する">💾 ほぞん</button>
     </div>
     <div class="mode-tabs">
-      <button class="mode-btn" data-mode="hiragana">ひらがな</button>
+      <button class="mode-btn active" data-mode="hiragana">ひらがな</button>
       <button class="mode-btn" data-mode="katakana">カタカナ</button>
       <button class="mode-btn" data-mode="dakuten">だくてん</button>
       <button class="mode-btn" data-mode="suuji">すうじ</button>
       <button class="mode-btn" data-mode="kotoba">ことば 🍎</button>
-      <button class="mode-btn active" data-mode="anaume">あなうめ ❓</button>
+      <button class="mode-btn" data-mode="anaume">あなうめ ❓</button>
       <button class="mode-btn" data-mode="oekaki">おえかき</button>
     </div>
   </header>
 
-  <!-- カルーセルバー -->
-  <div class="char-scroll-container" id="char-scroll-bar"><div class="char-pill ">🐶 い ［ ？ ］</div><div class="char-pill active">🐱 ［ ？ ］ こ</div><div class="char-pill ">🍎 り ［ ？ ］ ご</div><div class="char-pill ">🚗 く る ［ ？ ］</div><div class="char-pill ">🐼 ぱ ［ ？ ］ だ</div><div class="char-pill ">🍓 ［ ？ ］ ち ご</div><div class="char-pill ">🍣 ［ ？ ］ し</div><div class="char-pill ">🐥 と ［ ？ ］</div><div class="char-pill ">🐟 さ か ［ ？ ］</div><div class="char-pill ">🌙 ［ ？ ］ き</div><div class="char-pill ">⭐ ほ ［ ？ ］</div><div class="char-pill ">🍬 あ ［ ？ ］</div><div class="char-pill ">🐻 ［ ？ ］ ま</div><div class="char-pill ">🐰 う ［ ？ ］ ぎ</div><div class="char-pill ">🦊 き つ ［ ？ ］</div><div class="char-pill ">🐘 ［ ？ ］ う</div><div class="char-pill ">🍉 す ［ ？ ］ か</div><div class="char-pill ">🍌 ば な ［ ？ ］</div><div class="char-pill ">🍊 ［ ？ ］ か ん</div><div class="char-pill ">🍇 ぶ ［ ？ ］ う</div><div class="char-pill ">🚃 ［ ？ ］ ん し ゃ</div><div class="char-pill ">🚢 ふ ［ ？ ］</div><div class="char-pill ">🌈 に ［ ？ ］</div><div class="char-pill ">🍉 す い ［ ？ ］</div></div>
+  <div class="char-scroll-container" id="char-scroll-bar"></div>
 
-  <!-- ヒント表示バー（ことば・あなうめ時） -->
-  <div class="word-hint-bar" id="word-hint-bar" style="display: flex;">
-    <span class="word-hint-emoji" id="word-hint-emoji">🐱</span>
-    <span id="word-hint-text">あなうめ：［ ？ ］ こ</span>
+  <div class="word-hint-bar" id="word-hint-bar" style="display: none;">
+    <span class="word-hint-emoji" id="word-hint-emoji">🍎</span>
+    <span id="word-hint-text">りんご</span>
   </div>
 
-  <!-- キャンバス（正常修復版） -->
-  <div class="canvas-wrapper wide-mode" id="canvas-card">
-    <svg class="grid-lines" id="grid-lines" viewBox="0 0 100 100" preserveAspectRatio="none" style="display: none;">
-      <line x1="50" y1="0" x2="50" y2="100"></line>
-      <line x1="0" y1="50" x2="100" y2="50"></line>
+  <div class="canvas-wrapper" id="canvas-card">
+    <svg class="grid-lines" id="grid-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <line x1="50" y1="0" x2="50" y2="100"/>
+      <line x1="0" y1="50" x2="100" y2="50"/>
     </svg>
-
-    <!-- 単文字用ガイドレイヤー -->
-    <div class="guide-text-layer" id="guide-text" style="display: none; font-size: 220px;"></div>
-
-    <!-- ことば・あなうめ用マルチボックスレイヤー -->
-    <div class="word-boxes-container" id="word-boxes-container" style="display: flex;"><div class="word-box-item is-target-blank" id="word-box-0"><span class="word-box-char" style="color: rgb(203, 213, 225); font-size: 64px;">？</span></div><div class="word-box-item is-fixed" id="word-box-1"><span class="word-box-char">こ</span></div></div>
-
-    <canvas id="draw-canvas" width="673" height="360" style="width: 672.594px; height: 360px; transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: scale(1) translateY(0px);"></canvas>
+    <div class="guide-text-layer" id="guide-text">あ</div>
+    <div class="word-boxes-container" id="word-boxes-container" style="display: none;"></div>
+    <canvas id="draw-canvas"></canvas>
     <div id="order-pins-container"></div>
-
-    <!-- 次へ進むボタン（合格時に表示） -->
-    <button class="next-stage-btn" id="btn-next-stage" style="display: none;">つぎへ！ ➔</button>
-
-    <div class="try-again-bubble" id="try-again-bubble">
-      ⭐ おしい！ ここに もじを かいてみよう！
-    </div>
-
-    <!-- 達成時演出（スプランキー目玉・花丸・紙吹雪） -->
-    <div class="reward-overlay" id="reward-overlay" style="display: none;">
+    <button class="next-stage-btn" id="btn-next-stage">つぎへ！ ➔</button>
+    <div class="try-again-bubble" id="try-again-bubble">⭐ おしい！ ここに もじを かいてみよう！</div>
+    <div class="reward-overlay" id="reward-overlay">
       <div class="sprunki-eyes" id="sprunki-eyes">
         <div class="eye"><div class="pupil"></div></div>
         <div class="eye wink"><div class="pupil"></div></div>
       </div>
-
       <svg class="hanamaru" id="hanamaru-svg" viewBox="0 0 120 120">
-        <circle cx="60" cy="60" r="48" fill="none" stroke="#ff3838" stroke-width="6" stroke-dasharray="8 4"></circle>
-        <circle cx="60" cy="60" r="38" fill="none" stroke="#ff3838" stroke-width="7"></circle>
-        <path d="M60 22 C75 22 92 38 92 60 C92 78 78 94 60 94 C40 94 28 78 28 60 C28 42 42 22 60 22" fill="none" stroke="#ff3838" stroke-width="5" stroke-linecap="round"></path>
+        <circle cx="60" cy="60" r="48" fill="none" stroke="#ff3838" stroke-width="6" stroke-dasharray="8 4"/>
+        <circle cx="60" cy="60" r="38" fill="none" stroke="#ff3838" stroke-width="7"/>
+        <path d="M60 22 C75 22 92 38 92 60 C92 78 78 94 60 94 C40 94 28 78 28 60 C28 42 42 22 60 22" fill="none" stroke="#ff3838" stroke-width="5" stroke-linecap="round"/>
         <text x="60" y="66" font-size="20" font-weight="900" fill="#ff3838" text-anchor="middle">たいへんよくできました</text>
       </svg>
-
       <div class="confetti-container" id="confetti-container"></div>
     </div>
   </div>
 
-  <!-- 操作パネル -->
   <div class="control-panel">
     <div class="palette-container">
-      <div class="palette" id="normal-palette" style="display: flex;">
+      <div class="palette" id="normal-palette">
         <div class="color-swatch active" style="background: #ff4757;" data-color="#ff4757"></div>
         <div class="color-swatch" style="background: #1e90ff;" data-color="#1e90ff"></div>
         <div class="color-swatch" style="background: #ffa502;" data-color="#ffa502"></div>
         <div class="color-swatch" style="background: #2ed573;" data-color="#2ed573"></div>
         <div class="color-swatch rainbow-swatch" data-color="rainbow"></div>
       </div>
-
       <div class="color-mixer-toolbar" id="color-mixer-toolbar" style="display: none;">
         <div class="mixer-slot-group">
-          <div class="mixer-slot target-active" id="slot-1" title="タップして1つめの色をパレットから選んでね" style="background-color: rgb(255, 71, 87);"></div>
+          <div class="mixer-slot target-active" id="slot-1"></div>
           <span class="mixer-plus">＋</span>
-          <div class="mixer-slot" id="slot-2" title="タップして2つめの色をパレットから選んでね" style="background-color: rgb(30, 144, 255);"></div>
+          <div class="mixer-slot" id="slot-2"></div>
         </div>
         <button class="btn-mix-action" id="btn-mix-colors">まぜる！✨</button>
       </div>
-
       <div class="brush-size-picker" id="brush-size-picker">
         <span class="brush-size-label">ふとさ</span>
-        <button class="btn-brush-size" data-size="sm" title="ほそいペン">
-          <span class="brush-dot dot-sm"></span>
-        </button>
-        <button class="btn-brush-size active" data-size="md" title="ふつうのペン">
-          <span class="brush-dot dot-md"></span>
-        </button>
-        <button class="btn-brush-size" data-size="lg" title="ふといペン">
-          <span class="brush-dot dot-lg"></span>
-        </button>
+        <button class="btn-brush-size" data-size="sm"><span class="brush-dot dot-sm"></span></button>
+        <button class="btn-brush-size active" data-size="md"><span class="brush-dot dot-md"></span></button>
+        <button class="btn-brush-size" data-size="lg"><span class="brush-dot dot-lg"></span></button>
       </div>
-
       <div class="oekaki-palette-row" id="oekaki-palette" style="display: none;">
-        <div class="color-swatch active" style="background: #ff4757;" data-color="#ff4757" title="あか"></div>
-        <div class="color-swatch" style="background: #ff6b81;" data-color="#ff6b81" title="ピンク"></div>
-        <div class="color-swatch" style="background: #ff9ff3;" data-color="#ff9ff3" title="うすピンク"></div>
-        <div class="color-swatch" style="background: #ffa502;" data-color="#ffa502" title="オレンジ"></div>
-        <div class="color-swatch" style="background: #ffd32a;" data-color="#ffd32a" title="きいろ"></div>
-        <div class="color-swatch" style="background: #feca57;" data-color="#feca57" title="クリームいろ"></div>
-        <div class="color-swatch" style="background: #2ed573;" data-color="#2ed573" title="みどり"></div>
-        <div class="color-swatch" style="background: #1dd1a1;" data-color="#1dd1a1" title="エメラルド"></div>
-        <div class="color-swatch" style="background: #0be881;" data-color="#0be881" title="きみどり"></div>
-        <div class="color-swatch" style="background: #1e90ff;" data-color="#1e90ff" title="あお"></div>
-        <div class="color-swatch" style="background: #48dbfb;" data-color="#48dbfb" title="みずいろ"></div>
-        <div class="color-swatch" style="background: #9b59b6;" data-color="#9b59b6" title="むらさき"></div>
-        <div class="color-swatch" style="background: #5f27cd;" data-color="#5f27cd" title="こいむらさき"></div>
-        <div class="color-swatch" style="background: #8b572a;" data-color="#8b572a" title="ちゃいろ"></div>
-        <div class="color-swatch" style="background: #ffffff; border: 2px solid #cbd5e1;" data-color="#ffffff" title="しろ"></div>
-        <div class="color-swatch" style="background: #2f3542;" data-color="#2f3542" title="くろ"></div>
-        <div class="color-swatch rainbow-swatch" data-color="rainbow" title="にじいろ"></div>
+        <div class="color-swatch active" style="background: #ff4757;" data-color="#ff4757"></div>
+        <div class="color-swatch" style="background: #ff6b81;" data-color="#ff6b81"></div>
+        <div class="color-swatch" style="background: #ff9ff3;" data-color="#ff9ff3"></div>
+        <div class="color-swatch" style="background: #ffa502;" data-color="#ffa502"></div>
+        <div class="color-swatch" style="background: #ffd32a;" data-color="#ffd32a"></div>
+        <div class="color-swatch" style="background: #feca57;" data-color="#feca57"></div>
+        <div class="color-swatch" style="background: #2ed573;" data-color="#2ed573"></div>
+        <div class="color-swatch" style="background: #1dd1a1;" data-color="#1dd1a1"></div>
+        <div class="color-swatch" style="background: #0be881;" data-color="#0be881"></div>
+        <div class="color-swatch" style="background: #1e90ff;" data-color="#1e90ff"></div>
+        <div class="color-swatch" style="background: #48dbfb;" data-color="#48dbfb"></div>
+        <div class="color-swatch" style="background: #9b59b6;" data-color="#9b59b6"></div>
+        <div class="color-swatch" style="background: #5f27cd;" data-color="#5f27cd"></div>
+        <div class="color-swatch" style="background: #8b572a;" data-color="#8b572a"></div>
+        <div class="color-swatch" style="background: #ffffff; border: 2px solid #cbd5e1;" data-color="#ffffff"></div>
+        <div class="color-swatch" style="background: #2f3542;" data-color="#2f3542"></div>
+        <div class="color-swatch rainbow-swatch" data-color="rainbow"></div>
       </div>
     </div>
-
     <div class="actions-main">
       <button class="btn-action btn-clear" id="btn-clear">🗑️ けす</button>
-      <button class="btn-action btn-check" id="btn-check" style="display: inline-flex;">✨ できた！</button>
+      <button class="btn-action btn-check" id="btn-check">✨ できた！</button>
     </div>
-
     <div class="download-bar" id="download-bar" style="display: none;">
       <input type="file" id="image-file-input" accept="image/*" style="display: none;">
       <button class="btn-sub-dl btn-load-img" id="btn-load-image">📂 えをひらく</button>
@@ -1653,7 +825,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       <button class="btn-sub-dl btn-pdf-dl" id="btn-download-pdf">📄 PDF保存</button>
     </div>
   </div>
-
   <div id="print-sheet-area" style="display: none;"></div>
 
   <script>
@@ -1738,7 +909,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         });
       }
     }
-
     const sound = new SoundEngine();
 
     const CHAR_SETS = {
@@ -1748,7 +918,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       suuji: Array.from({ length: 101 }, (_, i) => String(i))
     };
 
-    /* ことばモード辞書（全24問） */
     const WORD_LIST = [
       { id: 'w1', word: 'いぬ', emoji: '🐶', label: 'いぬ' },
       { id: 'w2', word: 'ねこ', emoji: '🐱', label: 'ねこ' },
@@ -1776,7 +945,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       { id: 'w24', word: 'にじ', emoji: '🌈', label: 'にじ' }
     ];
 
-    /* あなうめモード辞書（完全空欄・全24問） */
     const ANAUME_LIST = [
       { id: 'a1', word: 'いぬ', blankIndex: 1, emoji: '🐶', label: 'い ［ ？ ］' },
       { id: 'a2', word: 'ねこ', blankIndex: 0, emoji: '🐱', label: '［ ？ ］ こ' },
@@ -1821,16 +989,13 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     let currentChar = 'あ';
     let currentWordItem = WORD_LIST[0];
     let currentAnaumeItem = ANAUME_LIST[0];
-
     let currentColor = '#ff4757';
     let currentBrushSize = 'md';
     let isDrawing = false;
     let rainbowHue = 0;
     let hasDrawnAnyLine = false;
-
     let oekakiBufferCanvas = null;
     let hasSavedOekaki = false;
-
     let activeMixerSlot = 'slot-1';
     let mixerColor1 = '#ff4757';
     let mixerColor2 = '#1e90ff';
@@ -1843,7 +1008,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     const wordHintBar = document.getElementById('word-hint-bar');
     const wordHintEmoji = document.getElementById('word-hint-emoji');
     const wordHintText = document.getElementById('word-hint-text');
-
     const pinsContainer = document.getElementById('order-pins-container');
     const charScrollBar = document.getElementById('char-scroll-bar');
     const gridLines = document.getElementById('grid-lines');
@@ -1851,17 +1015,14 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     const tryAgainBubble = document.getElementById('try-again-bubble');
     const confettiContainer = document.getElementById('confetti-container');
     const btnNextStage = document.getElementById('btn-next-stage');
-
     const oekakiPalette = document.getElementById('oekaki-palette');
     const normalPalette = document.getElementById('normal-palette');
     const colorMixerToolbar = document.getElementById('color-mixer-toolbar');
     const downloadBar = document.getElementById('download-bar');
     const btnCheck = document.getElementById('btn-check');
-
     const slot1 = document.getElementById('slot-1');
     const slot2 = document.getElementById('slot-2');
     const btnMixColors = document.getElementById('btn-mix-colors');
-
     const imageFileInput = document.getElementById('image-file-input');
     const btnLoadImage = document.getElementById('btn-load-image');
 
@@ -1873,7 +1034,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     imageFileInput.addEventListener('change', (e) => {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
-
       const reader = new FileReader();
       reader.onload = (event) => {
         const img = new Image();
@@ -1881,7 +1041,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
           const rect = wrapper.getBoundingClientRect();
           const viewW = rect.width;
           const viewH = rect.height;
-
           const scale = Math.min(viewW / img.width, viewH / img.height);
           const drawW = img.width * scale;
           const drawH = img.height * scale;
@@ -1905,9 +1064,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
 
     function saveOekakiToBuffer() {
       if (currentMode !== 'oekaki' || !hasDrawnAnyLine) return;
-      if (!oekakiBufferCanvas) {
-        oekakiBufferCanvas = document.createElement('canvas');
-      }
+      if (!oekakiBufferCanvas) oekakiBufferCanvas = document.createElement('canvas');
       oekakiBufferCanvas.width = drawCanvas.width;
       oekakiBufferCanvas.height = drawCanvas.height;
       const bCtx = oekakiBufferCanvas.getContext('2d');
@@ -1959,25 +1116,18 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     function blendColors(c1, c2) {
       const rgb1 = hexToRgb(c1);
       const rgb2 = hexToRgb(c2);
-      const r = Math.round((rgb1.r + rgb2.r) / 2);
-      const g = Math.round((rgb1.g + rgb2.g) / 2);
-      const b = Math.round((rgb1.b + rgb2.b) / 2);
-      return rgbToHex(r, g, b);
+      return rgbToHex(Math.round((rgb1.r + rgb2.r) / 2), Math.round((rgb1.g + rgb2.g) / 2), Math.round((rgb1.b + rgb2.b) / 2));
     }
 
     btnMixColors.addEventListener('click', () => {
       sound.playMagic();
       const blendedHex = blendColors(mixerColor1, mixerColor2);
-
       const newSwatch = document.createElement('div');
       newSwatch.className = 'color-swatch active';
       newSwatch.style.backgroundColor = blendedHex;
       newSwatch.setAttribute('data-color', blendedHex);
-      newSwatch.title = `まぜた色 (${blendedHex})`;
-
       document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
       oekakiPalette.prepend(newSwatch);
-
       attachSwatchEvent(newSwatch);
       currentColor = blendedHex;
       applyStrokeStyle();
@@ -1987,17 +1137,11 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     function updateBrushLineWidth() {
       let width = 14;
       if (currentMode === 'oekaki') {
-        if (currentBrushSize === 'sm') width = 6;
-        else if (currentBrushSize === 'md') width = 12;
-        else if (currentBrushSize === 'lg') width = 24;
+        width = (currentBrushSize === 'sm') ? 6 : (currentBrushSize === 'md' ? 12 : 24);
       } else if (currentMode === 'kotoba' || currentMode === 'anaume') {
-        if (currentBrushSize === 'sm') width = 8;
-        else if (currentBrushSize === 'md') width = 14;
-        else if (currentBrushSize === 'lg') width = 22;
+        width = (currentBrushSize === 'sm') ? 8 : (currentBrushSize === 'md' ? 14 : 22);
       } else {
-        if (currentBrushSize === 'sm') width = 10;
-        else if (currentBrushSize === 'md') width = 18;
-        else if (currentBrushSize === 'lg') width = 28;
+        width = (currentBrushSize === 'sm') ? 10 : (currentBrushSize === 'md' ? 18 : 28);
       }
       drawCtx.lineWidth = width;
     }
@@ -2014,27 +1158,11 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
 
     function getDrawnCanvasSnapshot() {
       const exportCanvas = document.createElement('canvas');
-      const w = drawCanvas.width;
-      const h = drawCanvas.height;
-
-      exportCanvas.width = w;
-      exportCanvas.height = h;
+      exportCanvas.width = drawCanvas.width;
+      exportCanvas.height = drawCanvas.height;
       const ctx = exportCanvas.getContext('2d');
-
       ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, w, h);
-
-      if (currentMode !== 'oekaki') {
-        ctx.strokeStyle = '#f1f5f9';
-        ctx.lineWidth = 4;
-        ctx.setLineDash([10, 10]);
-        ctx.beginPath();
-        ctx.moveTo(w / 2, 0); ctx.lineTo(w / 2, h);
-        ctx.moveTo(0, h / 2); ctx.lineTo(w / 2, h);
-        ctx.stroke();
-        ctx.setLineDash([]);
-      }
-
+      ctx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
       ctx.drawImage(drawCanvas, 0, 0);
       return exportCanvas;
     }
@@ -2042,9 +1170,8 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     document.getElementById('btn-download-png').addEventListener('click', () => {
       sound.playPop(680);
       const snapshot = getDrawnCanvasSnapshot();
-      const url = snapshot.toDataURL('image/png');
       const a = document.createElement('a');
-      a.href = url;
+      a.href = snapshot.toDataURL('image/png');
       a.download = `coki_おえかき_${new Date().toISOString().slice(0,10)}.png`;
       a.click();
     });
@@ -2058,7 +1185,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       img.src = snapshot.toDataURL('image/png');
       printSheetArea.appendChild(img);
       printSheetArea.style.display = 'flex';
-
       setTimeout(() => {
         window.print();
         setTimeout(() => {
@@ -2071,7 +1197,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     function resizeCanvases() {
       const rect = wrapper.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
-
       drawCanvas.width = Math.round(rect.width * dpr);
       drawCanvas.height = Math.round(rect.height * dpr);
       drawCanvas.style.width = `${rect.width}px`;
@@ -2091,7 +1216,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       }
     }
 
-    /* カルーセル初期化 */
     function initCharScroll() {
       charScrollBar.innerHTML = '';
       if (currentMode === 'oekaki') return;
@@ -2150,10 +1274,8 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       });
     }
 
-    /* 練習リセット＆レイアウト構築 */
     function resetCurrentPractice() {
       clearCanvas(false);
-
       if (currentMode === 'oekaki') {
         guideText.innerText = '';
         guideText.style.display = 'none';
@@ -2162,7 +1284,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         pinsContainer.innerHTML = '';
         return;
       }
-
       if (currentMode === 'kotoba') {
         guideText.innerText = '';
         guideText.style.display = 'none';
@@ -2170,12 +1291,10 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         wordHintBar.style.display = 'flex';
         wordHintEmoji.innerText = currentWordItem.emoji;
         wordHintText.innerText = currentWordItem.label;
-
         buildWordBoxes(currentWordItem.word, -1);
         renderWordPins(currentWordItem.word, -1);
         return;
       }
-
       if (currentMode === 'anaume') {
         guideText.innerText = '';
         guideText.style.display = 'none';
@@ -2183,35 +1302,26 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         wordHintBar.style.display = 'flex';
         wordHintEmoji.innerText = currentAnaumeItem.emoji;
         wordHintText.innerText = `あなうめ：${currentAnaumeItem.label}`;
-
         buildWordBoxes(currentAnaumeItem.word, currentAnaumeItem.blankIndex);
         renderWordPins(currentAnaumeItem.word, currentAnaumeItem.blankIndex);
         return;
       }
-
-      // 単文字モード（ひらがな・カタカナ・だくてん・すうじ）
       wordBoxesContainer.style.display = 'none';
       wordHintBar.style.display = 'none';
       guideText.style.display = 'flex';
       guideText.innerText = currentChar;
-      let fontSize = '220px';
-      if (currentChar.length === 2) fontSize = '140px';
-      if (currentChar.length >= 3) fontSize = '95px';
-      guideText.style.fontSize = fontSize;
+      guideText.style.fontSize = currentChar.length >= 3 ? '95px' : (currentChar.length === 2 ? '140px' : '220px');
       renderPins();
     }
 
     function buildWordBoxes(word, blankIdx) {
       wordBoxesContainer.innerHTML = '';
-      const chars = word.split('');
-      chars.forEach((c, idx) => {
+      word.split('').forEach((c, idx) => {
         const box = document.createElement('div');
         box.className = 'word-box-item';
         box.id = `word-box-${idx}`;
-
         const charSpan = document.createElement('span');
         charSpan.className = 'word-box-char';
-
         if (blankIdx !== -1) {
           if (idx === blankIdx) {
             box.classList.add('is-target-blank');
@@ -2225,7 +1335,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         } else {
           charSpan.innerText = c;
         }
-
         box.appendChild(charSpan);
         wordBoxesContainer.appendChild(box);
       });
@@ -2234,23 +1343,9 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     function renderPins() {
       pinsContainer.innerHTML = '';
       if (currentMode === 'oekaki' || currentMode === 'kotoba' || currentMode === 'anaume') return;
-
       const w = wrapper.clientWidth;
       const h = wrapper.clientHeight;
-      let pins = SPECIAL_PINS[currentChar];
-
-      if (!pins) {
-        if (currentChar.length > 1) {
-          pins = [];
-          const step = 1 / (currentChar.length + 1);
-          for (let i = 0; i < currentChar.length; i++) {
-            pins.push({ x: step * (i + 1), y: 0.28 });
-          }
-        } else {
-          pins = [{ x: 0.5, y: 0.25 }, { x: 0.32, y: 0.5 }];
-        }
-      }
-
+      let pins = SPECIAL_PINS[currentChar] || [{ x: 0.5, y: 0.25 }, { x: 0.32, y: 0.5 }];
       pins.forEach((p, idx) => {
         const div = document.createElement('div');
         div.className = 'order-pin';
@@ -2263,35 +1358,24 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     }
 
     let currentWordPinTargets = [];
-
     function renderWordPins(word, blankIdx) {
       pinsContainer.innerHTML = '';
       currentWordPinTargets = [];
-
-      // 穴埋めモードはピンを表示しない（完全空欄）
       if (blankIdx !== -1) return;
-
       setTimeout(() => {
-        const chars = word.split('');
         const wrapperRect = wrapper.getBoundingClientRect();
         let pinCounter = 1;
-
-        chars.forEach((c, idx) => {
+        word.split('').forEach((c, idx) => {
           const box = document.getElementById(`word-box-${idx}`);
           if (!box) return;
           const bRect = box.getBoundingClientRect();
-
           const relLeft = bRect.left - wrapperRect.left;
           const relTop = bRect.top - wrapperRect.top;
-          const boxW = bRect.width;
-          const boxH = bRect.height;
-
           let spec = SPECIAL_PINS[c] || [{ x: 0.5, y: 0.25 }, { x: 0.35, y: 0.55 }];
           spec.forEach(p => {
-            const posX = relLeft + p.x * boxW;
-            const posY = relTop + p.y * boxH;
+            const posX = relLeft + p.x * bRect.width;
+            const posY = relTop + p.y * bRect.height;
             const pinId = `wpin-${pinCounter}`;
-
             const div = document.createElement('div');
             div.className = 'order-pin';
             div.id = pinId;
@@ -2299,7 +1383,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
             div.style.left = `${posX - 14}px`;
             div.style.top = `${posY - 14}px`;
             pinsContainer.appendChild(div);
-
             currentWordPinTargets.push({ id: pinId, x: posX, y: posY, num: pinCounter });
             pinCounter++;
           });
@@ -2309,32 +1392,25 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
 
     let activePinsPassed = new Set();
     let blankDrawnStrokeCount = 0;
-
     function checkPinHit(touchX, touchY) {
       if (currentMode === 'oekaki') return;
-
       if (currentMode === 'anaume') {
         const blankBox = document.querySelector('.word-box-item.is-target-blank');
         if (blankBox) {
           const wrapperRect = wrapper.getBoundingClientRect();
           const bRect = blankBox.getBoundingClientRect();
           const bLeft = bRect.left - wrapperRect.left;
-          const bRight = bLeft + bRect.width;
           const bTop = bRect.top - wrapperRect.top;
-          const bBottom = bTop + bRect.height;
-
-          if (touchX >= bLeft && touchX <= bRight && touchY >= bTop && touchY <= bBottom) {
+          if (touchX >= bLeft && touchX <= (bLeft + bRect.width) && touchY >= bTop && touchY <= (bTop + bRect.height)) {
             blankDrawnStrokeCount++;
           }
         }
         return;
       }
-
       if (currentMode === 'kotoba') {
         currentWordPinTargets.forEach(target => {
           if (activePinsPassed.has(target.id)) return;
-          const dist = Math.hypot(touchX - target.x, touchY - target.y);
-          if (dist < 34) {
+          if (Math.hypot(touchX - target.x, touchY - target.y) < 34) {
             activePinsPassed.add(target.id);
             const pinEl = document.getElementById(target.id);
             if (pinEl) {
@@ -2345,18 +1421,12 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         });
         return;
       }
-
-      // 単文字モード
       const w = wrapper.clientWidth;
       const h = wrapper.clientHeight;
       let pins = SPECIAL_PINS[currentChar] || [{ x: 0.5, y: 0.25 }, { x: 0.32, y: 0.5 }];
-
       pins.forEach((p, idx) => {
         if (activePinsPassed.has(idx)) return;
-        const px = p.x * w;
-        const py = p.y * h;
-        const dist = Math.hypot(touchX - px, touchY - py);
-        if (dist < 32) {
+        if (Math.hypot(touchX - p.x * w, touchY - p.y * h) < 32) {
           activePinsPassed.add(idx);
           const pinEl = document.getElementById(`pin-${idx}`);
           if (pinEl) {
@@ -2367,17 +1437,12 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       });
     }
 
-    let lastX = 0;
-    let lastY = 0;
-
+    let lastX = 0, lastY = 0;
     function getCoords(e) {
       const rect = drawCanvas.getBoundingClientRect();
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      return {
-        x: clientX - rect.left,
-        y: clientY - rect.top
-      };
+      return { x: clientX - rect.left, y: clientY - rect.top };
     }
 
     function startDraw(e) {
@@ -2402,13 +1467,11 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       if (!isDrawing) return;
       e.preventDefault();
       const p = getCoords(e);
-
       applyStrokeStyle();
       drawCtx.beginPath();
       drawCtx.moveTo(lastX, lastY);
       drawCtx.lineTo(p.x, p.y);
       drawCtx.stroke();
-
       checkPinHit(p.x, p.y);
       lastX = p.x;
       lastY = p.y;
@@ -2416,9 +1479,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
 
     function endDraw() {
       isDrawing = false;
-      if (currentMode === 'oekaki') {
-        saveOekakiToBuffer();
-      }
+      if (currentMode === 'oekaki') saveOekakiToBuffer();
     }
 
     function applyStrokeStyle() {
@@ -2435,7 +1496,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     drawCanvas.addEventListener('mousedown', startDraw);
     window.addEventListener('mousemove', moveDraw);
     window.addEventListener('mouseup', endDraw);
-
     drawCanvas.addEventListener('touchstart', startDraw, { passive: false });
     window.addEventListener('touchmove', moveDraw, { passive: false });
     window.addEventListener('touchend', endDraw);
@@ -2443,99 +1503,51 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     function evaluateTracingQuality() {
       if (currentMode === 'oekaki') return true;
       if (!hasDrawnAnyLine) return false;
-
-      if (currentMode === 'anaume') {
-        return blankDrawnStrokeCount >= 18;
-      }
-
+      if (currentMode === 'anaume') return blankDrawnStrokeCount >= 18;
       if (currentMode === 'kotoba') {
-        const totalPins = currentWordPinTargets.length;
-        if (totalPins === 0) return true;
-        const passedCount = activePinsPassed.size;
-        return passedCount >= Math.ceil(totalPins * 0.75);
+        return activePinsPassed.size >= Math.ceil(currentWordPinTargets.length * 0.75);
       }
-
-      let totalPins = 2;
-      if (SPECIAL_PINS[currentChar]) {
-        totalPins = SPECIAL_PINS[currentChar].length;
-      } else if (currentChar.length > 1) {
-        totalPins = currentChar.length;
-      }
-
-      const passedCount = activePinsPassed.size;
-      let isPinSatisfied = false;
-      if (totalPins <= 2) {
-        isPinSatisfied = (passedCount === totalPins);
-      } else {
-        isPinSatisfied = (passedCount >= totalPins);
-      }
-
-      return isPinSatisfied;
+      let totalPins = SPECIAL_PINS[currentChar] ? SPECIAL_PINS[currentChar].length : (currentChar.length > 1 ? currentChar.length : 2);
+      return activePinsPassed.size >= totalPins;
     }
 
     let nextAutoAdvanceTimer = null;
-
     function advanceToNextItem() {
       if (nextAutoAdvanceTimer) {
         clearTimeout(nextAutoAdvanceTimer);
         nextAutoAdvanceTimer = null;
       }
       btnNextStage.style.display = 'none';
-
       if (currentMode === 'kotoba') {
         const idx = WORD_LIST.findIndex(w => w.id === currentWordItem.id);
-        const nextIdx = (idx + 1) % WORD_LIST.length;
-        currentWordItem = WORD_LIST[nextIdx];
+        currentWordItem = WORD_LIST[(idx + 1) % WORD_LIST.length];
       } else if (currentMode === 'anaume') {
         const idx = ANAUME_LIST.findIndex(a => a.id === currentAnaumeItem.id);
-        const nextIdx = (idx + 1) % ANAUME_LIST.length;
-        currentAnaumeItem = ANAUME_LIST[nextIdx];
+        currentAnaumeItem = ANAUME_LIST[(idx + 1) % ANAUME_LIST.length];
       } else if (currentMode !== 'oekaki') {
         const list = CHAR_SETS[currentMode] || [];
         const idx = list.indexOf(currentChar);
-        if (idx !== -1) {
-          const nextIdx = (idx + 1) % list.length;
-          currentChar = list[nextIdx];
-        }
+        if (idx !== -1) currentChar = list[(idx + 1) % list.length];
       }
-
       initCharScroll();
       resetCurrentPractice();
-      scrollCurrentPillIntoView();
       sound.playPop(520);
     }
 
-    function scrollCurrentPillIntoView() {
-      const activePill = document.querySelector('.char-pill.active');
-      if (activePill) {
-        activePill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      }
-    }
-
-    btnNextStage.addEventListener('click', () => {
-      advanceToNextItem();
-    });
+    btnNextStage.addEventListener('click', advanceToNextItem);
 
     function triggerSuccess() {
       sound.playFanfare();
       rewardOverlay.style.display = 'block';
       setTimeout(() => rewardOverlay.classList.add('active'), 10);
       createConfetti();
-
       if (currentMode !== 'oekaki') {
         btnNextStage.style.display = 'inline-flex';
-        nextAutoAdvanceTimer = setTimeout(() => {
-          advanceToNextItem();
-        }, 2200);
+        nextAutoAdvanceTimer = setTimeout(advanceToNextItem, 2200);
       }
-
       drawCanvas.style.transition = 'transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
       drawCanvas.style.transform = 'scale(1.04) translateY(-4px)';
-
-      setTimeout(() => {
-        drawCanvas.style.transform = 'scale(1) translateY(0)';
-      }, 400);
-
+      setTimeout(() => { drawCanvas.style.transform = 'scale(1) translateY(0)'; }, 400);
       setTimeout(() => {
         rewardOverlay.classList.remove('active');
         setTimeout(() => {
@@ -2548,9 +1560,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     function triggerTryAgain() {
       sound.playTryAgain();
       tryAgainBubble.classList.add('active');
-      setTimeout(() => {
-        tryAgainBubble.classList.remove('active');
-      }, 2000);
+      setTimeout(() => { tryAgainBubble.classList.remove('active'); }, 2000);
     }
 
     function createConfetti() {
@@ -2579,17 +1589,14 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       activePinsPassed.clear();
       blankDrawnStrokeCount = 0;
       document.querySelectorAll('.order-pin').forEach(pin => pin.classList.remove('passed'));
-
       if (nextAutoAdvanceTimer) {
         clearTimeout(nextAutoAdvanceTimer);
         nextAutoAdvanceTimer = null;
       }
-
       if (clearBuffer && currentMode === 'oekaki') {
         hasSavedOekaki = false;
         if (oekakiBufferCanvas) {
-          const bCtx = oekakiBufferCanvas.getContext('2d');
-          bCtx.clearRect(0, 0, oekakiBufferCanvas.width, oekakiBufferCanvas.height);
+          oekakiBufferCanvas.getContext('2d').clearRect(0, 0, oekakiBufferCanvas.width, oekakiBufferCanvas.height);
         }
       }
     }
@@ -2600,11 +1607,8 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     });
 
     btnCheck.addEventListener('click', () => {
-      if (evaluateTracingQuality()) {
-        triggerSuccess();
-      } else {
-        triggerTryAgain();
-      }
+      if (evaluateTracingQuality()) triggerSuccess();
+      else triggerTryAgain();
     });
 
     function attachSwatchEvent(swatch) {
@@ -2614,7 +1618,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         const col = swatch.getAttribute('data-color');
         currentColor = col;
         sound.playPop(740);
-
         if (currentMode === 'oekaki' && col !== 'rainbow') {
           if (activeMixerSlot === 'slot-1') {
             mixerColor1 = col;
@@ -2631,19 +1634,14 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     document.querySelectorAll('.color-swatch').forEach(attachSwatchEvent);
     updateMixerSlotUI();
 
-    /* モードタブ切り替えロジック */
     document.querySelectorAll('.mode-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        if (currentMode === 'oekaki') {
-          saveOekakiToBuffer();
-        }
-
+        if (currentMode === 'oekaki') saveOekakiToBuffer();
         document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentMode = btn.getAttribute('data-mode');
         sound.playPop(620);
 
-        // クラスと幅のリセット
         document.body.classList.remove('is-oekaki', 'is-wide');
         wrapper.classList.remove('fullscreen-mode', 'wide-mode');
 
@@ -2666,31 +1664,24 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
           downloadBar.style.display = 'none';
           btnCheck.style.display = 'inline-flex';
         } else {
-          // 単文字モード
           gridLines.style.display = 'block';
           normalPalette.style.display = 'flex';
           oekakiPalette.style.display = 'none';
           colorMixerToolbar.style.display = 'none';
           downloadBar.style.display = 'none';
           btnCheck.style.display = 'inline-flex';
-          
           const defaultList = CHAR_SETS[currentMode] || [];
           currentChar = defaultList[0] || 'あ';
         }
-
         initCharScroll();
         resetCurrentPractice();
-
-        requestAnimationFrame(() => {
-          resizeCanvases();
-        });
+        requestAnimationFrame(resizeCanvases);
       });
     });
 
     document.getElementById('btn-save-file').addEventListener('click', () => {
       sound.playPop(700);
-      const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-      const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+      const blob = new Blob(["<!DOCTYPE html>\n" + document.documentElement.outerHTML], { type: "text/html;charset=utf-8" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
       a.download = "index.html";
@@ -2699,15 +1690,12 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       document.body.removeChild(a);
     });
 
-    window.addEventListener('resize', () => {
-      resizeCanvases();
-    });
-
+    window.addEventListener('resize', resizeCanvases);
     window.addEventListener('DOMContentLoaded', () => {
       initCharScroll();
       resetCurrentPractice();
       resizeCanvases();
     });
   </script>
-
-</body></html>
+</body>
+</html>
