@@ -19,7 +19,7 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      touch-action: none !important;
+      touch-action: none;
       -webkit-touch-callout: none;
       -webkit-user-select: none;
       user-select: none;
@@ -90,14 +90,14 @@
     }
     .mode-tabs {
       display: flex;
-      gap: 2px;
+      gap: 3px;
       background: #e2e8f0;
       padding: 3px;
       border-radius: 12px;
       overflow-x: auto;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
-      touch-action: pan-x !important;
+      touch-action: pan-x;
     }
     .mode-tabs::-webkit-scrollbar { display: none; }
     .mode-btn {
@@ -125,7 +125,7 @@
       overflow-x: auto;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
-      touch-action: pan-x !important;
+      touch-action: pan-x;
       z-index: 20;
       min-height: 52px;
       align-items: center;
@@ -188,7 +188,7 @@
       border: 4px solid #e2e8f0;
       box-shadow: 0 8px 24px rgba(0,0,0,0.06);
       overflow: hidden;
-      touch-action: none !important;
+      touch-action: none;
     }
     .canvas-wrapper.wide-mode {
       width: 95vw !important;
@@ -210,7 +210,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none !important;
+      pointer-events: none;
       z-index: 1;
     }
     .grid-lines line {
@@ -231,7 +231,7 @@
       font-weight: 900;
       color: #cbd5e1;
       line-height: 1;
-      pointer-events: none !important;
+      pointer-events: none;
       z-index: 2;
       transform: translateY(4px);
     }
@@ -244,17 +244,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-      padding: 10px 20px;
+      gap: 10px;
+      padding: 10px 14px;
       z-index: 2;
-      pointer-events: none !important;
+      pointer-events: none;
     }
     .word-box-item {
       flex: 1;
-      max-width: 170px;
-      height: 82%;
+      max-width: 160px;
+      height: 84%;
       border: 3px dashed #cbd5e1;
-      border-radius: 20px;
+      border-radius: 18px;
       background: rgba(248, 250, 252, 0.6);
       display: flex;
       align-items: center;
@@ -266,7 +266,7 @@
       background: rgba(255, 71, 87, 0.05);
     }
     .word-box-char {
-      font-size: 96px;
+      font-size: 90px;
       font-weight: 900;
       color: #cbd5e1;
       line-height: 1;
@@ -281,7 +281,7 @@
       width: 100%;
       height: 100%;
       z-index: 100;
-      touch-action: none !important;
+      touch-action: none;
       cursor: crosshair;
     }
     .order-pin {
@@ -298,7 +298,7 @@
       align-items: center;
       justify-content: center;
       z-index: 110;
-      pointer-events: none !important;
+      pointer-events: none;
       box-shadow: 0 3px 6px rgba(0,0,0,0.25);
       animation: pulse 1.4s infinite ease-in-out;
     }
@@ -373,7 +373,7 @@
       overflow-x: auto;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
-      touch-action: pan-x !important;
+      touch-action: pan-x;
     }
     .oekaki-palette-row::-webkit-scrollbar { display: none; }
     .color-mixer-toolbar {
@@ -409,11 +409,7 @@
       0% { box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4); }
       100% { box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.7); }
     }
-    .mixer-plus {
-      font-size: 16px;
-      font-weight: 900;
-      color: #94a3b8;
-    }
+    .mixer-plus { font-size: 16px; font-weight: 900; color: #94a3b8; }
     .btn-mix-action {
       background: linear-gradient(135deg, #6366f1, #a855f7);
       color: #ffffff;
@@ -437,12 +433,7 @@
       border: 2px solid #cbd5e1;
       box-shadow: 0 2px 5px rgba(0,0,0,0.04);
     }
-    .brush-size-label {
-      font-size: 11px;
-      font-weight: 900;
-      color: #64748b;
-      margin-right: 2px;
-    }
+    .brush-size-label { font-size: 11px; font-weight: 900; color: #64748b; margin-right: 2px; }
     .btn-brush-size {
       display: inline-flex;
       align-items: center;
@@ -462,20 +453,11 @@
       transform: scale(1.1);
       box-shadow: 0 2px 6px rgba(99, 102, 241, 0.35);
     }
-    .brush-dot {
-      background-color: currentColor;
-      border-radius: 50%;
-      display: inline-block;
-    }
+    .brush-dot { background-color: currentColor; border-radius: 50%; display: inline-block; }
     .brush-dot.dot-sm { width: 6px; height: 6px; }
     .brush-dot.dot-md { width: 12px; height: 12px; }
     .brush-dot.dot-lg { width: 20px; height: 20px; }
-    .actions-main {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-      justify-content: center;
-    }
+    .actions-main { display: flex; gap: 10px; width: 100%; justify-content: center; }
     .btn-action {
       flex: 1;
       max-width: 150px;
@@ -490,32 +472,11 @@
       justify-content: center;
       gap: 5px;
     }
-    .btn-clear {
-      background: #f1f5f9;
-      color: #64748b;
-      border: 3px solid #cbd5e1;
-      box-shadow: 0 4px 0 #cbd5e1;
-    }
-    .btn-clear:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 #cbd5e1;
-    }
-    .btn-check {
-      background: #2ed573;
-      color: #ffffff;
-      border: 3px solid #20bf6b;
-      box-shadow: 0 4px 0 #20bf6b;
-    }
-    .btn-check:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 #20bf6b;
-    }
-    .download-bar {
-      display: flex;
-      gap: 8px;
-      width: 100%;
-      justify-content: center;
-    }
+    .btn-clear { background: #f1f5f9; color: #64748b; border: 3px solid #cbd5e1; box-shadow: 0 4px 0 #cbd5e1; }
+    .btn-clear:active { transform: translateY(2px); box-shadow: 0 1px 0 #cbd5e1; }
+    .btn-check { background: #2ed573; color: #ffffff; border: 3px solid #20bf6b; box-shadow: 0 4px 0 #20bf6b; }
+    .btn-check:active { transform: translateY(2px); box-shadow: 0 1px 0 #20bf6b; }
+    .download-bar { display: flex; gap: 8px; width: 100%; justify-content: center; }
     .btn-sub-dl {
       flex: 1;
       max-width: 145px;
@@ -530,55 +491,25 @@
       gap: 4px;
       border: none;
     }
-    .btn-png-dl {
-      background: #e0f2fe;
-      color: #0284c7;
-      border: 2px solid #bae6fd;
-      box-shadow: 0 3px 0 #bae6fd;
-    }
-    .btn-png-dl:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 #bae6fd;
-    }
-    .btn-pdf-dl {
-      background: #f3e8ff;
-      color: #9333ea;
-      border: 2px solid #e9d5ff;
-      box-shadow: 0 3px 0 #e9d5ff;
-    }
-    .btn-pdf-dl:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 #e9d5ff;
-    }
-    .btn-load-img {
-      background: #fef3c7;
-      color: #d97706;
-      border: 2px solid #fde68a;
-      box-shadow: 0 3px 0 #fde68a;
-    }
-    .btn-load-img:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 #fde68a;
-    }
+    .btn-png-dl { background: #e0f2fe; color: #0284c7; border: 2px solid #bae6fd; box-shadow: 0 3px 0 #bae6fd; }
+    .btn-png-dl:active { transform: translateY(2px); box-shadow: 0 1px 0 #bae6fd; }
+    .btn-pdf-dl { background: #f3e8ff; color: #9333ea; border: 2px solid #e9d5ff; box-shadow: 0 3px 0 #e9d5ff; }
+    .btn-pdf-dl:active { transform: translateY(2px); box-shadow: 0 1px 0 #e9d5ff; }
+    .btn-load-img { background: #fef3c7; color: #d97706; border: 2px solid #fde68a; box-shadow: 0 3px 0 #fde68a; }
+    .btn-load-img:active { transform: translateY(2px); box-shadow: 0 1px 0 #fde68a; }
     .reward-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none !important;
+      pointer-events: none;
       z-index: 120;
       opacity: 0;
       display: none;
       transition: opacity 0.3s;
     }
-    .reward-overlay * {
-      pointer-events: none !important;
-    }
-    .reward-overlay.active { 
-      opacity: 1; 
-      display: block;
-    }
+    .reward-overlay.active { opacity: 1; display: block; }
     .sprunki-eyes {
       position: absolute;
       top: 14%;
@@ -600,19 +531,8 @@
       justify-content: center;
       box-shadow: 0 3px 6px rgba(0,0,0,0.2);
     }
-    .pupil {
-      width: 13px;
-      height: 13px;
-      background: #111111;
-      border-radius: 50%;
-      position: absolute;
-      right: 5px;
-    }
-    .eye.wink {
-      height: 8px;
-      border-radius: 10px;
-      background: #1e272e;
-    }
+    .pupil { width: 13px; height: 13px; background: #111111; border-radius: 50%; position: absolute; right: 5px; }
+    .eye.wink { height: 8px; border-radius: 10px; background: #1e272e; }
     .eye.wink .pupil { display: none; }
     @keyframes monsterBounce {
       0% { transform: translateY(0) scale(1, 1); }
@@ -646,14 +566,11 @@
       border: 3px solid #ffffff;
       z-index: 130;
       opacity: 0;
-      pointer-events: none !important;
+      pointer-events: none;
       transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       white-space: nowrap;
     }
-    .try-again-bubble.active {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1.05);
-    }
+    .try-again-bubble.active { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
     .next-stage-btn {
       position: absolute;
       bottom: 12px;
@@ -683,7 +600,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none !important;
+      pointer-events: none;
       z-index: 123;
       overflow: hidden;
     }
@@ -698,34 +615,13 @@
       0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 1; }
       100% { transform: translateY(440px) rotate(720deg) scale(1.1); opacity: 0; }
     }
-    @media print {
-      body * { visibility: hidden; }
-      #print-sheet-area, #print-sheet-area * { visibility: visible; }
-      #print-sheet-area {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: white;
-      }
-      #print-sheet-area img {
-        max-width: 90%;
-        max-height: 90%;
-        border: 4px solid #334155;
-        border-radius: 20px;
-      }
-    }
   </style>
 </head>
 <body>
   <header>
     <div class="brand-left">
       <span class="brand-title">coki 🎨</span>
-      <button class="btn-download-app" id="btn-save-file" title="このアプリをiPadやPCに保存する">💾 ほぞん</button>
+      <button class="btn-download-app" id="btn-save-file" title="このアプリを保存する">💾 ほぞん</button>
     </div>
     <div class="mode-tabs">
       <button class="mode-btn active" data-mode="hiragana">ひらがな</button>
@@ -737,18 +633,15 @@
       <button class="mode-btn" data-mode="oekaki">おえかき</button>
     </div>
   </header>
-
   <div class="char-scroll-container" id="char-scroll-bar"></div>
-
   <div class="word-hint-bar" id="word-hint-bar" style="display: none;">
     <span class="word-hint-emoji" id="word-hint-emoji">🍎</span>
     <span id="word-hint-text">りんご</span>
   </div>
-
   <div class="canvas-wrapper" id="canvas-card">
     <svg class="grid-lines" id="grid-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
-      <line x1="50" y1="0" x2="50" y2="100"/>
-      <line x1="0" y1="50" x2="100" y2="50"/>
+      <line x1="50" y1="0" x2="50" y2="100"></line>
+      <line x1="0" y1="50" x2="100" y2="50"></line>
     </svg>
     <div class="guide-text-layer" id="guide-text">あ</div>
     <div class="word-boxes-container" id="word-boxes-container" style="display: none;"></div>
@@ -762,15 +655,14 @@
         <div class="eye wink"><div class="pupil"></div></div>
       </div>
       <svg class="hanamaru" id="hanamaru-svg" viewBox="0 0 120 120">
-        <circle cx="60" cy="60" r="48" fill="none" stroke="#ff3838" stroke-width="6" stroke-dasharray="8 4"/>
-        <circle cx="60" cy="60" r="38" fill="none" stroke="#ff3838" stroke-width="7"/>
-        <path d="M60 22 C75 22 92 38 92 60 C92 78 78 94 60 94 C40 94 28 78 28 60 C28 42 42 22 60 22" fill="none" stroke="#ff3838" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="60" cy="60" r="48" fill="none" stroke="#ff3838" stroke-width="6" stroke-dasharray="8 4"></circle>
+        <circle cx="60" cy="60" r="38" fill="none" stroke="#ff3838" stroke-width="7"></circle>
+        <path d="M60 22 C75 22 92 38 92 60 C92 78 78 94 60 94 C40 94 28 78 28 60 C28 42 42 22 60 22" fill="none" stroke="#ff3838" stroke-width="5" stroke-linecap="round"></path>
         <text x="60" y="66" font-size="20" font-weight="900" fill="#ff3838" text-anchor="middle">たいへんよくできました</text>
       </svg>
       <div class="confetti-container" id="confetti-container"></div>
     </div>
   </div>
-
   <div class="control-panel">
     <div class="palette-container">
       <div class="palette" id="normal-palette">
@@ -782,9 +674,9 @@
       </div>
       <div class="color-mixer-toolbar" id="color-mixer-toolbar" style="display: none;">
         <div class="mixer-slot-group">
-          <div class="mixer-slot target-active" id="slot-1"></div>
+          <div class="mixer-slot target-active" id="slot-1" style="background-color: #ff4757;"></div>
           <span class="mixer-plus">＋</span>
-          <div class="mixer-slot" id="slot-2"></div>
+          <div class="mixer-slot" id="slot-2" style="background-color: #1e90ff;"></div>
         </div>
         <button class="btn-mix-action" id="btn-mix-colors">まぜる！✨</button>
       </div>
@@ -826,876 +718,5 @@
     </div>
   </div>
   <div id="print-sheet-area" style="display: none;"></div>
-
-  <script>
-    class SoundEngine {
-      constructor() { this.ctx = null; }
-      init() {
-        if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          this.ctx = new AudioContext();
-        }
-        if (this.ctx.state === 'suspended') this.ctx.resume();
-      }
-      playPop(freq = 480) {
-        this.init();
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(freq * 1.6, this.ctx.currentTime + 0.08);
-        gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.09);
-      }
-      playFanfare() {
-        this.init();
-        const now = this.ctx.currentTime;
-        const notes = [
-          { f: 523.25, d: 0.12 }, { f: 587.33, d: 0.12 },
-          { f: 659.25, d: 0.12 }, { f: 698.46, d: 0.12 },
-          { f: 783.99, d: 0.35 }, { f: 659.25, d: 0.15 }, { f: 1046.5, d: 0.6 }
-        ];
-        let cursor = now;
-        notes.forEach((n, i) => {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = (i === notes.length - 1) ? 'triangle' : 'sine';
-          osc.frequency.setValueAtTime(n.f, cursor);
-          gain.gain.setValueAtTime(0.28, cursor);
-          gain.gain.exponentialRampToValueAtTime(0.001, cursor + n.d);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(cursor);
-          osc.stop(cursor + n.d);
-          cursor += n.d * 0.85;
-        });
-      }
-      playTryAgain() {
-        this.init();
-        const now = this.ctx.currentTime;
-        [440, 392].forEach((freq, idx) => {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'sine';
-          const startTime = now + idx * 0.14;
-          osc.frequency.setValueAtTime(freq, startTime);
-          gain.gain.setValueAtTime(0.22, startTime);
-          gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.13);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(startTime);
-          osc.stop(startTime + 0.14);
-        });
-      }
-      playMagic() {
-        this.init();
-        const now = this.ctx.currentTime;
-        [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'triangle';
-          const startTime = now + idx * 0.08;
-          osc.frequency.setValueAtTime(freq, startTime);
-          gain.gain.setValueAtTime(0.2, startTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.25);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(startTime);
-          osc.stop(startTime + 0.25);
-        });
-      }
-    }
-    const sound = new SoundEngine();
-
-    const CHAR_SETS = {
-      hiragana: "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん".split(""),
-      katakana: "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン".split(""),
-      dakuten: "がぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ".split(""),
-      suuji: Array.from({ length: 101 }, (_, i) => String(i))
-    };
-
-    const WORD_LIST = [
-      { id: 'w1', word: 'いぬ', emoji: '🐶', label: 'いぬ' },
-      { id: 'w2', word: 'ねこ', emoji: '🐱', label: 'ねこ' },
-      { id: 'w3', word: 'りんご', emoji: '🍎', label: 'りんご' },
-      { id: 'w4', word: 'くるま', emoji: '🚗', label: 'くるま' },
-      { id: 'w5', word: 'ぱんだ', emoji: '🐼', label: 'ぱんだ' },
-      { id: 'w6', word: 'いちご', emoji: '🍓', label: 'いちご' },
-      { id: 'w7', word: 'すし', emoji: '🍣', label: 'すし' },
-      { id: 'w8', word: 'とり', emoji: '🐥', label: 'とり' },
-      { id: 'w9', word: 'さかな', emoji: '🐟', label: 'さかな' },
-      { id: 'w10', word: 'つき', emoji: '🌙', label: 'つき' },
-      { id: 'w11', word: 'ほし', emoji: '⭐', label: 'ほし' },
-      { id: 'w12', word: 'あめ', emoji: '🍬', label: 'あめ' },
-      { id: 'w13', word: 'くま', emoji: '🐻', label: 'くま' },
-      { id: 'w14', word: 'うさぎ', emoji: '🐰', label: 'うさぎ' },
-      { id: 'w15', word: 'きつね', emoji: '🦊', label: 'きつね' },
-      { id: 'w16', word: 'ぞう', emoji: '🐘', label: 'ぞう' },
-      { id: 'w17', word: 'すいか', emoji: '🍉', label: 'すいか' },
-      { id: 'w18', word: 'ばなな', emoji: '🍌', label: 'ばなな' },
-      { id: 'w19', word: 'みかん', emoji: '🍊', label: 'みかん' },
-      { id: 'w20', word: 'ぶどう', emoji: '🍇', label: 'ぶどう' },
-      { id: 'w21', word: 'ひこうき', emoji: '✈️', label: 'ひこうき' },
-      { id: 'w22', word: 'でんしゃ', emoji: '🚃', label: 'でんしゃ' },
-      { id: 'w23', word: 'ふね', emoji: '🚢', label: 'ふね' },
-      { id: 'w24', word: 'にじ', emoji: '🌈', label: 'にじ' }
-    ];
-
-    const ANAUME_LIST = [
-      { id: 'a1', word: 'いぬ', blankIndex: 1, emoji: '🐶', label: 'い ［ ？ ］' },
-      { id: 'a2', word: 'ねこ', blankIndex: 0, emoji: '🐱', label: '［ ？ ］ こ' },
-      { id: 'a3', word: 'りんご', blankIndex: 1, emoji: '🍎', label: 'り ［ ？ ］ ご' },
-      { id: 'a4', word: 'くるま', blankIndex: 2, emoji: '🚗', label: 'く る ［ ？ ］' },
-      { id: 'a5', word: 'ぱんだ', blankIndex: 1, emoji: '🐼', label: 'ぱ ［ ？ ］ だ' },
-      { id: 'a6', word: 'いちご', blankIndex: 0, emoji: '🍓', label: '［ ？ ］ ち ご' },
-      { id: 'a7', word: 'すし', blankIndex: 0, emoji: '🍣', label: '［ ？ ］ し' },
-      { id: 'a8', word: 'とり', blankIndex: 1, emoji: '🐥', label: 'と ［ ？ ］' },
-      { id: 'a9', word: 'さかな', blankIndex: 2, emoji: '🐟', label: 'さ か ［ ？ ］' },
-      { id: 'a10', word: 'つき', blankIndex: 0, emoji: '🌙', label: '［ ？ ］ き' },
-      { id: 'a11', word: 'ほし', blankIndex: 1, emoji: '⭐', label: 'ほ ［ ？ ］' },
-      { id: 'a12', word: 'あめ', blankIndex: 1, emoji: '🍬', label: 'あ ［ ？ ］' },
-      { id: 'a13', word: 'くま', blankIndex: 0, emoji: '🐻', label: '［ ？ ］ ま' },
-      { id: 'a14', word: 'うさぎ', blankIndex: 1, emoji: '🐰', label: 'う ［ ？ ］ ぎ' },
-      { id: 'a15', word: 'きつね', blankIndex: 2, emoji: '🦊', label: 'き つ ［ ？ ］' },
-      { id: 'a16', word: 'ぞう', blankIndex: 0, emoji: '🐘', label: '［ ？ ］ う' },
-      { id: 'a17', word: 'すいか', blankIndex: 1, emoji: '🍉', label: 'す ［ ？ ］ か' },
-      { id: 'a18', word: 'ばなな', blankIndex: 2, emoji: '🍌', label: 'ば な ［ ？ ］' },
-      { id: 'a19', word: 'みかん', blankIndex: 0, emoji: '🍊', label: '［ ？ ］ か ん' },
-      { id: 'a20', word: 'ぶどう', blankIndex: 1, emoji: '🍇', label: 'ぶ ［ ？ ］ う' },
-      { id: 'a21', word: 'でんしゃ', blankIndex: 0, emoji: '🚃', label: '［ ？ ］ ん し ゃ' },
-      { id: 'a22', word: 'ふね', blankIndex: 1, emoji: '🚢', label: 'ふ ［ ？ ］' },
-      { id: 'a23', word: 'にじ', blankIndex: 1, emoji: '🌈', label: 'に ［ ？ ］' },
-      { id: 'a24', word: 'すいか', blankIndex: 2, emoji: '🍉', label: 'す い ［ ？ ］' }
-    ];
-
-    const SPECIAL_PINS = {
-      'あ': [{ x: 0.22, y: 0.28 }, { x: 0.48, y: 0.18 }, { x: 0.35, y: 0.48 }],
-      'い': [{ x: 0.28, y: 0.26 }, { x: 0.72, y: 0.36 }],
-      'う': [{ x: 0.48, y: 0.22 }, { x: 0.32, y: 0.45 }],
-      'え': [{ x: 0.46, y: 0.20 }, { x: 0.28, y: 0.40 }],
-      'お': [{ x: 0.20, y: 0.30 }, { x: 0.46, y: 0.20 }, { x: 0.74, y: 0.30 }],
-      'か': [{ x: 0.26, y: 0.28 }, { x: 0.48, y: 0.22 }, { x: 0.74, y: 0.25 }],
-      'き': [{ x: 0.28, y: 0.30 }, { x: 0.26, y: 0.45 }, { x: 0.50, y: 0.18 }, { x: 0.36, y: 0.65 }],
-      'さ': [{ x: 0.28, y: 0.32 }, { x: 0.52, y: 0.20 }, { x: 0.36, y: 0.65 }],
-      'た': [{ x: 0.22, y: 0.34 }, { x: 0.38, y: 0.22 }, { x: 0.56, y: 0.40 }, { x: 0.54, y: 0.62 }],
-      'な': [{ x: 0.24, y: 0.32 }, { x: 0.38, y: 0.22 }, { x: 0.64, y: 0.30 }, { x: 0.58, y: 0.55 }]
-    };
-
-    let currentMode = 'hiragana';
-    let currentChar = 'あ';
-    let currentWordItem = WORD_LIST[0];
-    let currentAnaumeItem = ANAUME_LIST[0];
-    let currentColor = '#ff4757';
-    let currentBrushSize = 'md';
-    let isDrawing = false;
-    let rainbowHue = 0;
-    let hasDrawnAnyLine = false;
-    let oekakiBufferCanvas = null;
-    let hasSavedOekaki = false;
-    let activeMixerSlot = 'slot-1';
-    let mixerColor1 = '#ff4757';
-    let mixerColor2 = '#1e90ff';
-
-    const wrapper = document.getElementById('canvas-card');
-    const drawCanvas = document.getElementById('draw-canvas');
-    const drawCtx = drawCanvas.getContext('2d');
-    const guideText = document.getElementById('guide-text');
-    const wordBoxesContainer = document.getElementById('word-boxes-container');
-    const wordHintBar = document.getElementById('word-hint-bar');
-    const wordHintEmoji = document.getElementById('word-hint-emoji');
-    const wordHintText = document.getElementById('word-hint-text');
-    const pinsContainer = document.getElementById('order-pins-container');
-    const charScrollBar = document.getElementById('char-scroll-bar');
-    const gridLines = document.getElementById('grid-lines');
-    const rewardOverlay = document.getElementById('reward-overlay');
-    const tryAgainBubble = document.getElementById('try-again-bubble');
-    const confettiContainer = document.getElementById('confetti-container');
-    const btnNextStage = document.getElementById('btn-next-stage');
-    const oekakiPalette = document.getElementById('oekaki-palette');
-    const normalPalette = document.getElementById('normal-palette');
-    const colorMixerToolbar = document.getElementById('color-mixer-toolbar');
-    const downloadBar = document.getElementById('download-bar');
-    const btnCheck = document.getElementById('btn-check');
-    const slot1 = document.getElementById('slot-1');
-    const slot2 = document.getElementById('slot-2');
-    const btnMixColors = document.getElementById('btn-mix-colors');
-    const imageFileInput = document.getElementById('image-file-input');
-    const btnLoadImage = document.getElementById('btn-load-image');
-
-    btnLoadImage.addEventListener('click', () => {
-      sound.playPop(580);
-      imageFileInput.click();
-    });
-
-    imageFileInput.addEventListener('change', (e) => {
-      const file = e.target.files && e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const img = new Image();
-        img.onload = () => {
-          const rect = wrapper.getBoundingClientRect();
-          const viewW = rect.width;
-          const viewH = rect.height;
-          const scale = Math.min(viewW / img.width, viewH / img.height);
-          const drawW = img.width * scale;
-          const drawH = img.height * scale;
-          const offsetX = (viewW - drawW) / 2;
-          const offsetY = (viewH - drawH) / 2;
-
-          clearCanvas(false);
-          drawCtx.save();
-          drawCtx.drawImage(img, offsetX, offsetY, drawW, drawH);
-          drawCtx.restore();
-
-          hasDrawnAnyLine = true;
-          saveOekakiToBuffer();
-          sound.playMagic();
-          imageFileInput.value = '';
-        };
-        img.src = event.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
-
-    function saveOekakiToBuffer() {
-      if (currentMode !== 'oekaki' || !hasDrawnAnyLine) return;
-      if (!oekakiBufferCanvas) oekakiBufferCanvas = document.createElement('canvas');
-      oekakiBufferCanvas.width = drawCanvas.width;
-      oekakiBufferCanvas.height = drawCanvas.height;
-      const bCtx = oekakiBufferCanvas.getContext('2d');
-      bCtx.clearRect(0, 0, oekakiBufferCanvas.width, oekakiBufferCanvas.height);
-      bCtx.drawImage(drawCanvas, 0, 0);
-      hasSavedOekaki = true;
-    }
-
-    function restoreOekakiFromBuffer() {
-      if (hasSavedOekaki && oekakiBufferCanvas) {
-        drawCtx.save();
-        drawCtx.setTransform(1, 0, 0, 1, 0, 0);
-        drawCtx.drawImage(oekakiBufferCanvas, 0, 0, drawCanvas.width, drawCanvas.height);
-        drawCtx.restore();
-        hasDrawnAnyLine = true;
-      }
-    }
-
-    function updateMixerSlotUI() {
-      slot1.style.backgroundColor = mixerColor1;
-      slot2.style.backgroundColor = mixerColor2;
-      slot1.classList.toggle('target-active', activeMixerSlot === 'slot-1');
-      slot2.classList.toggle('target-active', activeMixerSlot === 'slot-2');
-    }
-
-    slot1.addEventListener('click', () => {
-      activeMixerSlot = 'slot-1';
-      sound.playPop(550);
-      updateMixerSlotUI();
-    });
-
-    slot2.addEventListener('click', () => {
-      activeMixerSlot = 'slot-2';
-      sound.playPop(550);
-      updateMixerSlotUI();
-    });
-
-    function hexToRgb(hex) {
-      hex = hex.replace(/^#/, '');
-      if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
-      const num = parseInt(hex, 16);
-      return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
-    }
-
-    function rgbToHex(r, g, b) {
-      return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-    }
-
-    function blendColors(c1, c2) {
-      const rgb1 = hexToRgb(c1);
-      const rgb2 = hexToRgb(c2);
-      return rgbToHex(Math.round((rgb1.r + rgb2.r) / 2), Math.round((rgb1.g + rgb2.g) / 2), Math.round((rgb1.b + rgb2.b) / 2));
-    }
-
-    btnMixColors.addEventListener('click', () => {
-      sound.playMagic();
-      const blendedHex = blendColors(mixerColor1, mixerColor2);
-      const newSwatch = document.createElement('div');
-      newSwatch.className = 'color-swatch active';
-      newSwatch.style.backgroundColor = blendedHex;
-      newSwatch.setAttribute('data-color', blendedHex);
-      document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-      oekakiPalette.prepend(newSwatch);
-      attachSwatchEvent(newSwatch);
-      currentColor = blendedHex;
-      applyStrokeStyle();
-      oekakiPalette.scrollLeft = 0;
-    });
-
-    function updateBrushLineWidth() {
-      let width = 14;
-      if (currentMode === 'oekaki') {
-        width = (currentBrushSize === 'sm') ? 6 : (currentBrushSize === 'md' ? 12 : 24);
-      } else if (currentMode === 'kotoba' || currentMode === 'anaume') {
-        width = (currentBrushSize === 'sm') ? 8 : (currentBrushSize === 'md' ? 14 : 22);
-      } else {
-        width = (currentBrushSize === 'sm') ? 10 : (currentBrushSize === 'md' ? 18 : 28);
-      }
-      drawCtx.lineWidth = width;
-    }
-
-    document.querySelectorAll('.btn-brush-size').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.btn-brush-size').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentBrushSize = btn.getAttribute('data-size');
-        sound.playPop(620);
-        updateBrushLineWidth();
-      });
-    });
-
-    function getDrawnCanvasSnapshot() {
-      const exportCanvas = document.createElement('canvas');
-      exportCanvas.width = drawCanvas.width;
-      exportCanvas.height = drawCanvas.height;
-      const ctx = exportCanvas.getContext('2d');
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
-      ctx.drawImage(drawCanvas, 0, 0);
-      return exportCanvas;
-    }
-
-    document.getElementById('btn-download-png').addEventListener('click', () => {
-      sound.playPop(680);
-      const snapshot = getDrawnCanvasSnapshot();
-      const a = document.createElement('a');
-      a.href = snapshot.toDataURL('image/png');
-      a.download = `coki_おえかき_${new Date().toISOString().slice(0,10)}.png`;
-      a.click();
-    });
-
-    document.getElementById('btn-download-pdf').addEventListener('click', () => {
-      sound.playPop(680);
-      const snapshot = getDrawnCanvasSnapshot();
-      const printSheetArea = document.getElementById('print-sheet-area');
-      printSheetArea.innerHTML = '';
-      const img = document.createElement('img');
-      img.src = snapshot.toDataURL('image/png');
-      printSheetArea.appendChild(img);
-      printSheetArea.style.display = 'flex';
-      setTimeout(() => {
-        window.print();
-        setTimeout(() => {
-          printSheetArea.style.display = 'none';
-          printSheetArea.innerHTML = '';
-        }, 800);
-      }, 250);
-    });
-
-    function resizeCanvases() {
-      const rect = wrapper.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      drawCanvas.width = Math.round(rect.width * dpr);
-      drawCanvas.height = Math.round(rect.height * dpr);
-      drawCanvas.style.width = `${rect.width}px`;
-      drawCanvas.style.height = `${rect.height}px`;
-
-      drawCtx.setTransform(1, 0, 0, 1, 0, 0);
-      drawCtx.scale(dpr, dpr);
-      drawCtx.lineCap = 'round';
-      drawCtx.lineJoin = 'round';
-      updateBrushLineWidth();
-      applyStrokeStyle();
-
-      if (currentMode === 'oekaki') {
-        restoreOekakiFromBuffer();
-      } else {
-        renderPins();
-      }
-    }
-
-    function initCharScroll() {
-      charScrollBar.innerHTML = '';
-      if (currentMode === 'oekaki') return;
-
-      if (currentMode === 'kotoba') {
-        WORD_LIST.forEach((item) => {
-          const pill = document.createElement('div');
-          pill.className = `char-pill ${item.id === currentWordItem.id ? 'active' : ''}`;
-          pill.innerText = `${item.emoji} ${item.label}`;
-          pill.addEventListener('click', () => {
-            document.querySelectorAll('.char-pill').forEach(p => p.classList.remove('active'));
-            pill.classList.add('active');
-            currentWordItem = item;
-            sound.playPop(600);
-            resetCurrentPractice();
-          });
-          charScrollBar.appendChild(pill);
-        });
-        return;
-      }
-
-      if (currentMode === 'anaume') {
-        ANAUME_LIST.forEach((item) => {
-          const pill = document.createElement('div');
-          pill.className = `char-pill ${item.id === currentAnaumeItem.id ? 'active' : ''}`;
-          pill.innerText = `${item.emoji} ${item.label}`;
-          pill.addEventListener('click', () => {
-            document.querySelectorAll('.char-pill').forEach(p => p.classList.remove('active'));
-            pill.classList.add('active');
-            currentAnaumeItem = item;
-            sound.playPop(600);
-            resetCurrentPractice();
-          });
-          charScrollBar.appendChild(pill);
-        });
-        return;
-      }
-
-      const list = CHAR_SETS[currentMode] || [];
-      list.forEach((ch, idx) => {
-        const pill = document.createElement('div');
-        pill.className = `char-pill ${ch === currentChar ? 'active' : ''}`;
-        pill.innerText = ch;
-        pill.addEventListener('click', () => {
-          document.querySelectorAll('.char-pill').forEach(p => p.classList.remove('active'));
-          pill.classList.add('active');
-          currentChar = ch;
-          sound.playPop(600);
-          resetCurrentPractice();
-        });
-        charScrollBar.appendChild(pill);
-        if (idx === 0 && !list.includes(currentChar)) {
-          currentChar = ch;
-          pill.classList.add('active');
-        }
-      });
-    }
-
-    function resetCurrentPractice() {
-      clearCanvas(false);
-      if (currentMode === 'oekaki') {
-        guideText.innerText = '';
-        guideText.style.display = 'none';
-        wordBoxesContainer.style.display = 'none';
-        wordHintBar.style.display = 'none';
-        pinsContainer.innerHTML = '';
-        return;
-      }
-      if (currentMode === 'kotoba') {
-        guideText.innerText = '';
-        guideText.style.display = 'none';
-        wordBoxesContainer.style.display = 'flex';
-        wordHintBar.style.display = 'flex';
-        wordHintEmoji.innerText = currentWordItem.emoji;
-        wordHintText.innerText = currentWordItem.label;
-        buildWordBoxes(currentWordItem.word, -1);
-        renderWordPins(currentWordItem.word, -1);
-        return;
-      }
-      if (currentMode === 'anaume') {
-        guideText.innerText = '';
-        guideText.style.display = 'none';
-        wordBoxesContainer.style.display = 'flex';
-        wordHintBar.style.display = 'flex';
-        wordHintEmoji.innerText = currentAnaumeItem.emoji;
-        wordHintText.innerText = `あなうめ：${currentAnaumeItem.label}`;
-        buildWordBoxes(currentAnaumeItem.word, currentAnaumeItem.blankIndex);
-        renderWordPins(currentAnaumeItem.word, currentAnaumeItem.blankIndex);
-        return;
-      }
-      wordBoxesContainer.style.display = 'none';
-      wordHintBar.style.display = 'none';
-      guideText.style.display = 'flex';
-      guideText.innerText = currentChar;
-      guideText.style.fontSize = currentChar.length >= 3 ? '95px' : (currentChar.length === 2 ? '140px' : '220px');
-      renderPins();
-    }
-
-    function buildWordBoxes(word, blankIdx) {
-      wordBoxesContainer.innerHTML = '';
-      word.split('').forEach((c, idx) => {
-        const box = document.createElement('div');
-        box.className = 'word-box-item';
-        box.id = `word-box-${idx}`;
-        const charSpan = document.createElement('span');
-        charSpan.className = 'word-box-char';
-        if (blankIdx !== -1) {
-          if (idx === blankIdx) {
-            box.classList.add('is-target-blank');
-            charSpan.innerText = '？';
-            charSpan.style.color = '#cbd5e1';
-            charSpan.style.fontSize = '64px';
-          } else {
-            box.classList.add('is-fixed');
-            charSpan.innerText = c;
-          }
-        } else {
-          charSpan.innerText = c;
-        }
-        box.appendChild(charSpan);
-        wordBoxesContainer.appendChild(box);
-      });
-    }
-
-    function renderPins() {
-      pinsContainer.innerHTML = '';
-      if (currentMode === 'oekaki' || currentMode === 'kotoba' || currentMode === 'anaume') return;
-      const w = wrapper.clientWidth;
-      const h = wrapper.clientHeight;
-      let pins = SPECIAL_PINS[currentChar] || [{ x: 0.5, y: 0.25 }, { x: 0.32, y: 0.5 }];
-      pins.forEach((p, idx) => {
-        const div = document.createElement('div');
-        div.className = 'order-pin';
-        div.id = `pin-${idx}`;
-        div.innerText = idx + 1;
-        div.style.left = `${p.x * w - 14}px`;
-        div.style.top = `${p.y * h - 14}px`;
-        pinsContainer.appendChild(div);
-      });
-    }
-
-    let currentWordPinTargets = [];
-    function renderWordPins(word, blankIdx) {
-      pinsContainer.innerHTML = '';
-      currentWordPinTargets = [];
-      if (blankIdx !== -1) return;
-      setTimeout(() => {
-        const wrapperRect = wrapper.getBoundingClientRect();
-        let pinCounter = 1;
-        word.split('').forEach((c, idx) => {
-          const box = document.getElementById(`word-box-${idx}`);
-          if (!box) return;
-          const bRect = box.getBoundingClientRect();
-          const relLeft = bRect.left - wrapperRect.left;
-          const relTop = bRect.top - wrapperRect.top;
-          let spec = SPECIAL_PINS[c] || [{ x: 0.5, y: 0.25 }, { x: 0.35, y: 0.55 }];
-          spec.forEach(p => {
-            const posX = relLeft + p.x * bRect.width;
-            const posY = relTop + p.y * bRect.height;
-            const pinId = `wpin-${pinCounter}`;
-            const div = document.createElement('div');
-            div.className = 'order-pin';
-            div.id = pinId;
-            div.innerText = pinCounter;
-            div.style.left = `${posX - 14}px`;
-            div.style.top = `${posY - 14}px`;
-            pinsContainer.appendChild(div);
-            currentWordPinTargets.push({ id: pinId, x: posX, y: posY, num: pinCounter });
-            pinCounter++;
-          });
-        });
-      }, 30);
-    }
-
-    let activePinsPassed = new Set();
-    let blankDrawnStrokeCount = 0;
-    function checkPinHit(touchX, touchY) {
-      if (currentMode === 'oekaki') return;
-      if (currentMode === 'anaume') {
-        const blankBox = document.querySelector('.word-box-item.is-target-blank');
-        if (blankBox) {
-          const wrapperRect = wrapper.getBoundingClientRect();
-          const bRect = blankBox.getBoundingClientRect();
-          const bLeft = bRect.left - wrapperRect.left;
-          const bTop = bRect.top - wrapperRect.top;
-          if (touchX >= bLeft && touchX <= (bLeft + bRect.width) && touchY >= bTop && touchY <= (bTop + bRect.height)) {
-            blankDrawnStrokeCount++;
-          }
-        }
-        return;
-      }
-      if (currentMode === 'kotoba') {
-        currentWordPinTargets.forEach(target => {
-          if (activePinsPassed.has(target.id)) return;
-          if (Math.hypot(touchX - target.x, touchY - target.y) < 34) {
-            activePinsPassed.add(target.id);
-            const pinEl = document.getElementById(target.id);
-            if (pinEl) {
-              pinEl.classList.add('passed');
-              sound.playPop(750 + target.num * 40);
-            }
-          }
-        });
-        return;
-      }
-      const w = wrapper.clientWidth;
-      const h = wrapper.clientHeight;
-      let pins = SPECIAL_PINS[currentChar] || [{ x: 0.5, y: 0.25 }, { x: 0.32, y: 0.5 }];
-      pins.forEach((p, idx) => {
-        if (activePinsPassed.has(idx)) return;
-        if (Math.hypot(touchX - p.x * w, touchY - p.y * h) < 32) {
-          activePinsPassed.add(idx);
-          const pinEl = document.getElementById(`pin-${idx}`);
-          if (pinEl) {
-            pinEl.classList.add('passed');
-            sound.playPop(750 + idx * 80);
-          }
-        }
-      });
-    }
-
-    let lastX = 0, lastY = 0;
-    function getCoords(e) {
-      const rect = drawCanvas.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      return { x: clientX - rect.left, y: clientY - rect.top };
-    }
-
-    function startDraw(e) {
-      isDrawing = true;
-      hasDrawnAnyLine = true;
-      const p = getCoords(e);
-      lastX = p.x;
-      lastY = p.y;
-      sound.playPop(520);
-      drawDot(p.x, p.y);
-      checkPinHit(p.x, p.y);
-    }
-
-    function drawDot(x, y) {
-      applyStrokeStyle();
-      drawCtx.beginPath();
-      drawCtx.arc(x, y, drawCtx.lineWidth / 2, 0, Math.PI * 2);
-      drawCtx.fill();
-    }
-
-    function moveDraw(e) {
-      if (!isDrawing) return;
-      e.preventDefault();
-      const p = getCoords(e);
-      applyStrokeStyle();
-      drawCtx.beginPath();
-      drawCtx.moveTo(lastX, lastY);
-      drawCtx.lineTo(p.x, p.y);
-      drawCtx.stroke();
-      checkPinHit(p.x, p.y);
-      lastX = p.x;
-      lastY = p.y;
-    }
-
-    function endDraw() {
-      isDrawing = false;
-      if (currentMode === 'oekaki') saveOekakiToBuffer();
-    }
-
-    function applyStrokeStyle() {
-      if (currentColor === 'rainbow') {
-        rainbowHue = (rainbowHue + 4) % 360;
-        drawCtx.strokeStyle = `hsl(${rainbowHue}, 90%, 55%)`;
-        drawCtx.fillStyle = `hsl(${rainbowHue}, 90%, 55%)`;
-      } else {
-        drawCtx.strokeStyle = currentColor;
-        drawCtx.fillStyle = currentColor;
-      }
-    }
-
-    drawCanvas.addEventListener('mousedown', startDraw);
-    window.addEventListener('mousemove', moveDraw);
-    window.addEventListener('mouseup', endDraw);
-    drawCanvas.addEventListener('touchstart', startDraw, { passive: false });
-    window.addEventListener('touchmove', moveDraw, { passive: false });
-    window.addEventListener('touchend', endDraw);
-
-    function evaluateTracingQuality() {
-      if (currentMode === 'oekaki') return true;
-      if (!hasDrawnAnyLine) return false;
-      if (currentMode === 'anaume') return blankDrawnStrokeCount >= 18;
-      if (currentMode === 'kotoba') {
-        return activePinsPassed.size >= Math.ceil(currentWordPinTargets.length * 0.75);
-      }
-      let totalPins = SPECIAL_PINS[currentChar] ? SPECIAL_PINS[currentChar].length : (currentChar.length > 1 ? currentChar.length : 2);
-      return activePinsPassed.size >= totalPins;
-    }
-
-    let nextAutoAdvanceTimer = null;
-    function advanceToNextItem() {
-      if (nextAutoAdvanceTimer) {
-        clearTimeout(nextAutoAdvanceTimer);
-        nextAutoAdvanceTimer = null;
-      }
-      btnNextStage.style.display = 'none';
-      if (currentMode === 'kotoba') {
-        const idx = WORD_LIST.findIndex(w => w.id === currentWordItem.id);
-        currentWordItem = WORD_LIST[(idx + 1) % WORD_LIST.length];
-      } else if (currentMode === 'anaume') {
-        const idx = ANAUME_LIST.findIndex(a => a.id === currentAnaumeItem.id);
-        currentAnaumeItem = ANAUME_LIST[(idx + 1) % ANAUME_LIST.length];
-      } else if (currentMode !== 'oekaki') {
-        const list = CHAR_SETS[currentMode] || [];
-        const idx = list.indexOf(currentChar);
-        if (idx !== -1) currentChar = list[(idx + 1) % list.length];
-      }
-      initCharScroll();
-      resetCurrentPractice();
-      sound.playPop(520);
-    }
-
-    btnNextStage.addEventListener('click', advanceToNextItem);
-
-    function triggerSuccess() {
-      sound.playFanfare();
-      rewardOverlay.style.display = 'block';
-      setTimeout(() => rewardOverlay.classList.add('active'), 10);
-      createConfetti();
-      if (currentMode !== 'oekaki') {
-        btnNextStage.style.display = 'inline-flex';
-        nextAutoAdvanceTimer = setTimeout(advanceToNextItem, 2200);
-      }
-      drawCanvas.style.transition = 'transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-      drawCanvas.style.transform = 'scale(1.04) translateY(-4px)';
-      setTimeout(() => { drawCanvas.style.transform = 'scale(1) translateY(0)'; }, 400);
-      setTimeout(() => {
-        rewardOverlay.classList.remove('active');
-        setTimeout(() => {
-          rewardOverlay.style.display = 'none';
-          confettiContainer.innerHTML = '';
-        }, 300);
-      }, 3500);
-    }
-
-    function triggerTryAgain() {
-      sound.playTryAgain();
-      tryAgainBubble.classList.add('active');
-      setTimeout(() => { tryAgainBubble.classList.remove('active'); }, 2000);
-    }
-
-    function createConfetti() {
-      confettiContainer.innerHTML = '';
-      const colors = ['#ff4757', '#ffa502', '#2ed573', '#1e90ff', '#9b59b6', '#ff6b81'];
-      for (let i = 0; i < 35; i++) {
-        const piece = document.createElement('div');
-        piece.className = 'confetti-particle';
-        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        piece.style.left = `${Math.random() * 95}%`;
-        piece.style.top = `${-10 - Math.random() * 20}%`;
-        piece.style.animationDelay = `${Math.random() * 0.4}s`;
-        piece.style.transform = `scale(${0.6 + Math.random() * 0.6})`;
-        confettiContainer.appendChild(piece);
-      }
-    }
-
-    function clearCanvas(clearBuffer = false) {
-      drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
-      rewardOverlay.classList.remove('active');
-      rewardOverlay.style.display = 'none';
-      tryAgainBubble.classList.remove('active');
-      btnNextStage.style.display = 'none';
-      confettiContainer.innerHTML = '';
-      hasDrawnAnyLine = false;
-      activePinsPassed.clear();
-      blankDrawnStrokeCount = 0;
-      document.querySelectorAll('.order-pin').forEach(pin => pin.classList.remove('passed'));
-      if (nextAutoAdvanceTimer) {
-        clearTimeout(nextAutoAdvanceTimer);
-        nextAutoAdvanceTimer = null;
-      }
-      if (clearBuffer && currentMode === 'oekaki') {
-        hasSavedOekaki = false;
-        if (oekakiBufferCanvas) {
-          oekakiBufferCanvas.getContext('2d').clearRect(0, 0, oekakiBufferCanvas.width, oekakiBufferCanvas.height);
-        }
-      }
-    }
-
-    document.getElementById('btn-clear').addEventListener('click', () => {
-      sound.playPop(320);
-      clearCanvas(true);
-    });
-
-    btnCheck.addEventListener('click', () => {
-      if (evaluateTracingQuality()) triggerSuccess();
-      else triggerTryAgain();
-    });
-
-    function attachSwatchEvent(swatch) {
-      swatch.addEventListener('click', () => {
-        document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-        swatch.classList.add('active');
-        const col = swatch.getAttribute('data-color');
-        currentColor = col;
-        sound.playPop(740);
-        if (currentMode === 'oekaki' && col !== 'rainbow') {
-          if (activeMixerSlot === 'slot-1') {
-            mixerColor1 = col;
-            activeMixerSlot = 'slot-2';
-          } else {
-            mixerColor2 = col;
-            activeMixerSlot = 'slot-1';
-          }
-          updateMixerSlotUI();
-        }
-      });
-    }
-
-    document.querySelectorAll('.color-swatch').forEach(attachSwatchEvent);
-    updateMixerSlotUI();
-
-    document.querySelectorAll('.mode-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (currentMode === 'oekaki') saveOekakiToBuffer();
-        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentMode = btn.getAttribute('data-mode');
-        sound.playPop(620);
-
-        document.body.classList.remove('is-oekaki', 'is-wide');
-        wrapper.classList.remove('fullscreen-mode', 'wide-mode');
-
-        if (currentMode === 'oekaki') {
-          document.body.classList.add('is-oekaki');
-          wrapper.classList.add('fullscreen-mode');
-          gridLines.style.display = 'none';
-          normalPalette.style.display = 'none';
-          oekakiPalette.style.display = 'flex';
-          colorMixerToolbar.style.display = 'flex';
-          downloadBar.style.display = 'flex';
-          btnCheck.style.display = 'none';
-        } else if (currentMode === 'kotoba' || currentMode === 'anaume') {
-          document.body.classList.add('is-wide');
-          wrapper.classList.add('wide-mode');
-          gridLines.style.display = 'none';
-          normalPalette.style.display = 'flex';
-          oekakiPalette.style.display = 'none';
-          colorMixerToolbar.style.display = 'none';
-          downloadBar.style.display = 'none';
-          btnCheck.style.display = 'inline-flex';
-        } else {
-          gridLines.style.display = 'block';
-          normalPalette.style.display = 'flex';
-          oekakiPalette.style.display = 'none';
-          colorMixerToolbar.style.display = 'none';
-          downloadBar.style.display = 'none';
-          btnCheck.style.display = 'inline-flex';
-          const defaultList = CHAR_SETS[currentMode] || [];
-          currentChar = defaultList[0] || 'あ';
-        }
-        initCharScroll();
-        resetCurrentPractice();
-        requestAnimationFrame(resizeCanvases);
-      });
-    });
-
-    document.getElementById('btn-save-file').addEventListener('click', () => {
-      sound.playPop(700);
-      const blob = new Blob(["<!DOCTYPE html>\n" + document.documentElement.outerHTML], { type: "text/html;charset=utf-8" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "index.html";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    });
-
-    window.addEventListener('resize', resizeCanvases);
-    window.addEventListener('DOMContentLoaded', () => {
-      initCharScroll();
-      resetCurrentPractice();
-      resizeCanvases();
-    });
-  </script>
 </body>
 </html>
